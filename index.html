@@ -1,22 +1,118 @@
 <!DOCTYPE html5>
 <html>
     <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Draft Turnaus</title>
+        <link rel="stylesheet" href="css/base.css">
+        <link rel="stylesheet" href="css/index.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Tourney:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        <script src="js/hamburger.js" defer></script>
     </head>
     <body>
         <header>
-            <h1><a href="index.html">Draft Turnaus</button></h1>
-            <nav>
-                <a href="tilastot/pelaajat.html">Tilastot</a>
-                <a href="sarjataulukko.html">Sarjataulukko</a>
-                <a href="pelaajat.html">Pelaajat</a>
-                <a href="turnausinfo.html">Turnaus info</a>
+            <div class="titlebar">
+                <a href="index.html">
+                    <img class="logo-header" src="photos/logo.jpg">
+                </a>
+                <div class="title">
+                    <a href="index.html">
+                        <spans>Draft Turnaus</spans>
+                    </a>
+                </div>
+                <a class="hamburger">☰</a>
+            </div>
+            <nav class="menu">
+                <ul>
+                    <li class="child-page">
+                        <a href="schedule.html">
+                            <span>Otteluohjelma</span>
+                        </a>
+                    </li>
+                    <li class="child-page">
+                        <a href="stats.html">
+                            <span>Tilastot</span>
+                        </a>
+                    </li>
+                    <li class="child-page">
+                        <a href="leaderboard.html">
+                            <span>Sarjataulukko</span>
+                        </a>
+                    </li>
+                    <li class="child-page">
+                        <a href="players.html">
+                            <span>Pelaajat</span>
+                        </a>
+                    </li>
+                    <li class="child-page">
+                        <a href="tournamentinfo.html">
+                            <span>Turnaus info</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="trademark">
+                    <span>Made by brothagenie TM</span>
+                </div>
             </nav>
-            <hr>
         </header>
         <main>
-            
+            <div class="content">
+                <div class="infocards">
+                    <div class="infocards-left">
+                        <h2 class="infocards-headline">Mikä on Draft turnaus?</h2>
+                        <img class="logo-frontpage" src="photos/logo.jpg">
+                    </div>
+                    <div class="infocards-right">
+                        <ul class="infolist">
+                            <li class="infolist-item">
+                                <span>Turnaukseen on valittu kapteenit, jotka pyytävät
+                                    turnaukseen x pelaajaa. Tämän lisäksi toimitsijat pyytävät 30
+                                    pelaajaa.</span>
+                            </li>
+                            <li class="infolist-item">
+                                <span>Kaksi viikkoa ennen turnausta pidetää
+                                    draft tilaisuus, jossa joukkuiden kapteenit saavat
+                                    valita pelaajia yksi kerrallaan vuorotellen.
+                                </span>
+                            </li>
+                            <li class="infolist-item">
+                                <span>Turnauksen luonteen vuoksi se tullaan järjestämään
+                                    joka vuosi eri kokoonpanoin.
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="turnauskaavio">
+                    <img class="turnauskaavio-kuva" src="photos/nhl.png">
+                    <h3>Turnaus kaavio</h3>
+                    <span>Ensin pelataan alkulohkot, jonka jälkeen edetään
+                        pudotuspeleihin. Pronssiottelua ei pelata ja finaali on
+                        yhdestä poikki.
+                    </span>
+                </div>
+            </div>
         </main>
-        <footer></footer>
+        <footer>
+            <div class="footer">
+                <div class="footerlinks-container">
+                    <div class="footerlinks">
+                        <span>Meistä</span>
+                        <span>|</span>
+                        <span>Säännöt</span>
+                        <span>|</span>
+                        <span>Muuta</span>
+                        <span>|</span>
+                        <span>Tietosuoja</span>
+                    </div>
+                </div>
+                <div class="footertitle">
+                    <span>© Draft turnaus<sup>&trade;</sup></span>
+                    <span>Turku 2026</span>
+                </div>
+            </div>
+        </footer>
     </body>
 </html>
