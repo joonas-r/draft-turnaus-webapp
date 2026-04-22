@@ -1,26 +1,26 @@
-<!DOCTYPE html5>
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Draft Turnaus</title>
-        <link rel="stylesheet" href="css/base.css">
-        <link rel="stylesheet" href="css/tables.css">
-        
-
+        <link rel="stylesheet" href="/css/base.css">
+        <link rel="stylesheet" href="/css/tables.css">
+        <link rel="icon" href="/photos/logo.jpg" type="favicon.ico">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Tourney:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-        <script src="js/hamburger.js" defer></script>
+        <script src="/js/hamburger.js" defer></script>
+        <script src="https://unpkg.com/htmx.org@1.9.0" defer></script>
     </head>
     <body>
         <header>
             <div class="titlebar">
-                <a href="index.html">
-                    <img class="logo-header" src="photos/logo.jpg">
+                <a href="/index.html">
+                    <img class="logo-header" src="/photos/logo.jpg">
                 </a>
                 <div class="title">
-                    <a href="index.html">
+                    <a href="/index.html">
                         <spans>Draft Turnaus</spans>
                     </a>
                 </div>
@@ -29,27 +29,27 @@
             <nav class="menu">
                 <ul>
                     <li class="child-page">
-                        <a href="schedule.html">
+                        <a href="/schedule.html">
                             <span>Otteluohjelma</span>
                         </a>
                     </li>
                     <li class="child-page">
-                        <a href="stats.html">
+                        <a href="/stats.html">
                             <span>Tilastot</span>
                         </a>
                     </li>
                     <li class="child-page">
-                        <a href="leaderboard.html">
+                        <a href="/leaderboard.html">
                             <span>Sarjataulukko</span>
                         </a>
                     </li>
                     <li class="child-page">
-                        <a href="players.html">
+                        <a href="/players.html">
                             <span>Pelaajat</span>
                         </a>
                     </li>
                     <li class="child-page">
-                        <a href="tournamentinfo.html">
+                        <a href="/tournamentinfo.html">
                             <span>Turnaus info</span>
                         </a>
                     </li>
@@ -80,8 +80,8 @@
                                 <th>Ottelu</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr class="matchup-container">
+                        <tbody hx-get="/schedule/division-a" hx-trigger="load" hx-swap="innerHTML">
+                            <!-- <tr class="matchup-container">
                                 <td>
                                     <div class="matchup-info-container">
                                         <div class="matchup-info">
@@ -96,13 +96,13 @@
                                         <div class="team-container">
                                             <span>Kiekkokingit</span>
                                             <div class="team-img-container">
-                                                <img class="team-img" src="photos/profile.png">
+                                                <img class="team-img" src="/photos/profile.png">
                                             </div>
                                         </div>
                                         <span class="matchup-vs">@</span>
                                         <div class="team-container">
                                             <div class="team-img-container">
-                                                <img class="team-img" src="photos/profile.png">
+                                                <img class="team-img" src="/photos/profile.png">
                                             </div>
                                             <span>Rautakotkat</span>
                                         </div>
@@ -115,7 +115,7 @@
                                     </div>
                                 </td>
                             </tr>
-                            
+                             -->
                         </tbody>
                     </table>
                 </div>
@@ -129,8 +129,8 @@
                                 <th>Ottelu</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr class="matchup-container">
+                        <tbody hx-get="/schedule/division-b" hx-trigger="load" hx-swap="innerHTML">
+                            <!-- <tr class="matchup-container">
                                 <td>
                                     <div class="matchup-info-container">
                                         <div class="matchup-info">
@@ -145,13 +145,13 @@
                                         <div class="team-container">
                                             <span>Kiekkokingit</span>
                                             <div class="team-img-container">
-                                                <img class="team-img" src="photos/profile.png">
+                                                <img class="team-img" src="/photos/profile.png">
                                             </div>
                                         </div>
                                         <span class="matchup-vs">@</span>
                                         <div class="team-container">
                                             <div class="team-img-container">
-                                                <img class="team-img" src="photos/profile.png">
+                                                <img class="team-img" src="/photos/profile.png">
                                             </div>
                                             <span>Rautakotkat</span>
                                         </div>
@@ -163,7 +163,7 @@
                                         <span>N/A</span>
                                     </div>
                                 </td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table>
                 </div>

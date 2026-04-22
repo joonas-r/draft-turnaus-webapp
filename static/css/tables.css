@@ -1,0 +1,234 @@
+
+table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    font-size: 1rem;
+}
+
+#player-table-wrapper {
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+th, td {
+    /* padding: 5px 10px; */
+    text-align: center;
+    text-wrap: wrap;
+}
+
+thead {
+    font-weight: bold;
+}
+
+thead tr {
+    border-top: 1px solid #42424246;
+}
+
+tbody tr {
+    border-top: 1px solid #42424246;
+    border-bottom: 1px solid #42424246;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #fafafa; 
+}
+
+@media (min-width: 768px) {
+    tbody tr:hover {
+        background-color: #f0f0f0;
+    }
+}
+
+
+table img {
+    width: 50px;
+    height: auto;
+    border-radius: 50%;
+}
+
+.thead-tr {
+    height: 64px;
+}
+
+.tbody-tr {
+    height: 64px;
+}
+
+
+/* SCHEDULE TABLES */
+.schedule-table {
+    border-top: none;
+}
+
+.schedule-header {
+    height: 60px;
+}
+
+.matchup-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.matchup-info-container {
+    display: flex;
+    height: 35px;
+    justify-content: center;
+    align-items: center;
+}
+
+.matchup-info {
+    height: fit-content;
+    font-size: 0.9rem;
+}
+
+.matchup-teams {
+    display: flex;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+}
+
+.matchup-vs {
+    align-content: center;
+}
+
+.team-img-container {
+    width: 50px;
+    height: auto;
+    padding: 0 10px;
+}
+
+.game-result-container {
+    display: flex;
+    flex-direction: column;
+    height: 60px;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-result {
+    height: fit-content;
+    font-size: 0.9rem;
+}
+
+.team-container {
+    display: flex;
+    align-items: center;
+}
+
+
+.leaderboard-title {
+    font-size: 2rem;
+    font-weight: bolder;
+    margin-bottom: 60px;
+}
+
+.division-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+
+/* LEADERBOARD TABLE */
+
+.team-container {
+    display: flex;
+    align-items: center;
+}
+
+.teams-th {
+    text-align: left;
+}
+
+
+/* PLAYER AND STATS TABLES */
+.player-table img {
+    margin-right: 10px;
+}
+
+.player-container {
+    display: flex;
+    align-items: center;
+}
+
+.players-th {
+    text-align: left;
+}
+
+
+
+/* DROPDOWN MENU */
+.filterable-th {
+    position: relative; /*needed so dropdown positions relative to this th */
+}
+
+.th-content {
+    display: flex;
+    align-items: center;
+}
+
+.filter-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    gap: 4px;
+}
+
+.filter-indicator {
+    color: teal;
+}
+
+.filter-dropdown {
+    font-size: 1rem;
+    display: none;
+    position: absolute;
+    top: 100%; /* appears just below the header */
+    left: 0;
+    background-color: #fff;
+    border: 1px solid teal;
+    padding: 8px;
+    z-index: 200; /* above table content */
+    min-width: 60px;
+    white-space: nowrap;
+}
+
+.filter-dropdown.open {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.filter-dropdown label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    color: #000;
+    font-weight:normal;
+}
+
+.filter-dropdown input[type="checkbox"] {
+    cursor: pointer;
+    accent-color: teal; /* colors the checkbox to match your theme */
+}
+
+.sortable-th {
+    cursor: pointer;
+    user-select: none; /* prevents text highlighting on repeated clicks */
+}
+
+.sort-indicator {
+    font-size: 0.8rem;
+    margin-left: 4px;
+    color: teal;
+}
