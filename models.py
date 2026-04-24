@@ -110,7 +110,7 @@ class Player(SQLModel, table=True):
     recruiter: Optional[str] = Field(default=None, max_length=16)
     primary_pos: Optional[str] = Field(default=None, max_length=2)
     secondary_pos: Optional[str] = Field(default=None, max_length=2)
-    playstyle: Optional[str] = Field(default=None, max_length=32)
+    playstyle: Optional[str] = Field(default=None, max_length=64)
     experience: int = Field(default=0)
     licenced: bool = Field(default=False)
 

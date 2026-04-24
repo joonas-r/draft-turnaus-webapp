@@ -12,16 +12,16 @@ app = FastAPI()
 @app.on_event("startup")
 def on_startup():
     create_db_and_tables()
-    seed_mock_data()
+#    seed_mock_data()
 
 @app.post("/players")
 def add_player(
     player_in: schemas.PlayerCreate,
-    db: Session = Depends(get_session)
+    session: Session = Depends(get_session)
 ):
     try:
         # Return player
-        return crud.create_player(db=db, player_in=player_in)
+        return crud.create_player(session=session, player_in=player_in)
     except Exception as e:
         # Error handling
         raise HTTPException(

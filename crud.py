@@ -9,8 +9,8 @@ def create_player(*, session: Session, player_in: PlayerCreate) -> Player:
     session.flush() # draft_players.player_id käytettävissä
 
     # Luodaan tilasto-entry pelaajalle player_stats.player_id
-    #stats = PlayerStats(player_id=player.player_id)
-    #session.add(stats)
+    stats = PlayerStats(player_id=player.player_id)
+    session.add(stats)
 
     session.commit()
     session.refresh(player)

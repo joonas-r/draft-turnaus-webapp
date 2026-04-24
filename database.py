@@ -7,7 +7,8 @@ from dotenv import load_dotenv, dotenv_values
 load_dotenv()
 
 # Switch DATABASE_URL to the actual database in production
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///test.db") # db_url
+#DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///test.db") # db_url
+DATABASE_URL = os.getenv("db_url")
 
 # Creates a connection to the database
 engine = create_engine(DATABASE_URL)
