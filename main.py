@@ -1,9 +1,10 @@
-from fastapi import FastAPI, Query
+from fastapi import FastAPI, Query, HTTPException, Depends
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from sqlmodel import Session, select
-from database import engine, create_db_and_tables, seed_mock_data
+from database import engine, create_db_and_tables, seed_mock_data, get_session
 from models import Team, Player, PlayerStats, Match
+import crud, schemas
 
 app = FastAPI()
 
@@ -12,6 +13,21 @@ app = FastAPI()
 def on_startup():
     create_db_and_tables()
     seed_mock_data()
+
+@app.post("/players")
+def add_player(
+    player_in: schemas.PlayerCreate,
+    db: Session = Depends(get_session)
+):
+    try:
+        # Return player
+        return crud.create_player(db=db, player_in=player_in)
+    except Exception as e:
+        # Error handling
+        raise HTTPException(
+            status_code=400,
+            detail=str(e)
+        )
 
 
 # -------------------------------------------------------
