@@ -1,12 +1,21 @@
 import os
 from sqlmodel import SQLModel, create_engine, Session, select
 from models import Team, Player, PlayerStats, Match
+from dotenv import load_dotenv, dotenv_values
+
+# Load .env enviroment variables
+load_dotenv()
 
 # Switch DATABASE_URL to the actual database in production
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///test.db")
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///test.db") # db_url
 
 # Creates a connection to the database
 engine = create_engine(DATABASE_URL)
+
+# Create a session, can call from other places
+def get_session():
+     with Session(engine) as session:
+         yield session
 
 # Creates database tables based on models.py where table=True
 def create_db_and_tables():
