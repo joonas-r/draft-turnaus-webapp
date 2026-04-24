@@ -14,20 +14,22 @@ def on_startup():
     create_db_and_tables()
 #    seed_mock_data()
 
-@app.post("/players")
-def add_player(
-    player_in: schemas.PlayerCreate,
-    session: Session = Depends(get_session)
-):
-    try:
-        # Return player
-        return crud.create_player(session=session, player_in=player_in)
-    except Exception as e:
-        # Error handling
-        raise HTTPException(
-            status_code=400,
-            detail=str(e)
-        )
+# No need to add new players via api
+
+# @app.post("/players")
+# def add_player(
+#     player_in: schemas.PlayerCreate,
+#     session: Session = Depends(get_session)
+# ):
+#     try:
+#         # Return player
+#         return crud.create_player(session=session, player_in=player_in)
+#     except Exception as e:
+#         # Error handling
+#         raise HTTPException(
+#             status_code=400,
+#             detail=str(e)
+#         )
 
 
 # -------------------------------------------------------
