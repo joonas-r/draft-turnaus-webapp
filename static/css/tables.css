@@ -156,70 +156,73 @@ table img {
 }
 
 .players-th {
+    text-align: center;
+}
+
+#sort-name {
     text-align: left;
+    padding-left: 10px;
 }
 
 
 
 /* DROPDOWN MENU */
-.filterable-th {
-    position: relative; /*needed so dropdown positions relative to this th */
+.filter-controls {
+    position: relative;
+    margin-bottom: 15px;
 }
 
-.th-content {
-    display: flex;
-    align-items: center;
-}
-
-.filter-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: none;
+#main-filter-btn {
+    width: 140px;
+    padding: 8px 16px;
+    cursor: pointer;
+    background: #333;
+    color: white;
     border: none;
-    color: inherit;
+    border-radius: 4px;
+}
+
+#main-filter-panel { 
+    display: none; 
+    position: absolute; 
+    top: 100%; 
+    left: 0; 
+    background: white; 
+    color: black; 
+    border: 1px solid #ccc; 
+    padding: 15px; 
+    z-index: 200; 
+    min-width: 300px; 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+}
+
+#main-filter-panel.open { 
+    display: flex !important; /* Added !important to debug specificity issues */
+    flex-wrap: wrap; 
+    gap: 20px; 
+}
+.filter-group h4 {
+    margin: 0 0 5px 0;
+    font-size: 14px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 3px;
+}
+
+.filter-group label {
+    display: block;
+    margin-bottom: 3px;
+    font-size: 14px;
     cursor: pointer;
-    font-size: 1rem;
-    font-weight: bold;
-    gap: 4px;
 }
 
-.filter-indicator {
-    color: teal;
-}
-
-.filter-dropdown {
-    font-size: 1rem;
-    display: none;
-    position: absolute;
-    top: 100%; /* appears just below the header */
-    left: 0;
-    background-color: #fff;
-    border: 1px solid teal;
-    padding: 8px;
-    z-index: 200; /* above table content */
-    min-width: 60px;
-    white-space: nowrap;
-}
-
-.filter-dropdown.open {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.filter-dropdown label {
-    display: flex;
-    align-items: center;
-    gap: 6px;
+.sortable-th {
     cursor: pointer;
-    color: #000;
-    font-weight:normal;
+    user-select: none;
 }
 
-.filter-dropdown input[type="checkbox"] {
-    cursor: pointer;
-    accent-color: teal; /* colors the checkbox to match your theme */
+.sortable-th:hover {
+    background-color: rgba(0,0,0,0.05);
 }
 
 .sortable-th {
