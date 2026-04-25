@@ -2,10 +2,10 @@
 const mainFilterBtn = document.getElementById('main-filter-btn');
 const mainFilterPanel = document.getElementById('main-filter-panel');
 
-// mainFilterBtn?.addEventListener('click', (e) => {
-//     e.stopPropagation();
-//     mainFilterPanel.classList.toggle('open');
-// });
+mainFilterBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    mainFilterPanel.classList.toggle('open');
+});
 
 document.addEventListener('click', function() {
     mainFilterPanel.classList.remove('open');
