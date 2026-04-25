@@ -7,6 +7,14 @@ mainFilterBtn?.addEventListener('click', (e) => {
     mainFilterPanel.classList.toggle('open');
 });
 
+// document.addEventListener('click', function() {
+//     mainFilterPanel.classList.remove('open');
+// });
+
+// mainFilterPanel.addEventListener('click', function(e) {
+//     e.stopPropagation(); // prevent panel clicks from closing it
+// });
+
 // 2. Clear Filters Button Listener
 document.getElementById('clear-filters-btn')?.addEventListener('click', () => {
     document.querySelectorAll('#main-filter-panel input[type="checkbox"]').forEach(cb => cb.checked = false);
