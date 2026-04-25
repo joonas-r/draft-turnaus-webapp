@@ -7,9 +7,9 @@ mainFilterBtn?.addEventListener('click', (e) => {
     mainFilterPanel.classList.toggle('open');
 });
 
-document.addEventListener('click', function() {
-    mainFilterPanel.classList.remove('open');
-});
+// document.addEventListener('click', function() {
+//     mainFilterPanel.classList.remove('open');
+// });
 
 mainFilterPanel.addEventListener('click', function(e) {
     e.stopPropagation(); // prevent panel clicks from closing it
