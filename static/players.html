@@ -6,37 +6,29 @@
         <title>Draft Turnaus</title>
         <link rel="stylesheet" href="/css/base.css">
         <link rel="stylesheet" href="/css/tables.css">
-        <link rel="icon" href="/photos/logo.jpg" type="favicon.ico">
+        <link rel="icon" href="/logos/logo_default.png" type="favicon.ico">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Tourney:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
         <script src="https://unpkg.com/htmx.org@1.9.0" defer></script>
         <script src="/js/hamburger.js" defer></script>
-        <script src="/js/filters.js" defer></script> 
-        <style>
-            /* Quick styles for the new filter menu - move to your CSS file later */
-            .filter-controls { position: relative; margin-bottom: 15px; }
-            #main-filter-btn { padding: 8px 16px; cursor: pointer; background: #333; color: white; border: none; border-radius: 4px; }
-            #main-filter-panel { display: none; position: absolute; top: 100%; left: 0; background: white; color: black; border: 1px solid #ccc; padding: 15px; z-index: 200; min-width: 300px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-            #main-filter-panel.open { display: flex; flex-wrap: wrap; gap: 20px; }
-            .filter-group h4 { margin: 0 0 5px 0; font-size: 14px; text-transform: uppercase; border-bottom: 1px solid #eee; padding-bottom: 3px; }
-            .filter-group label { display: block; margin-bottom: 3px; font-size: 14px; cursor: pointer; }
-            .sortable-th { cursor: pointer; user-select: none; }
-            .sortable-th:hover { background-color: rgba(0,0,0,0.05); }
-        </style>
+        <script src="/js/filters.js" defer></script>
     </head>
     <body>
         <header>
             <div class="titlebar">
-                <a href="/index.html">
-                    <img class="logo-header" src="/photos/logo.jpg">
+                <a href="/players.html" class="logo-link">
+                    <svg width="60px" height="60px">
+                        <use href="/logos/logo_white_black.svg#logo_white_black"></use>
+                    </svg>
+                    <!-- <img src="/logos/logo_default.png" width="100px" height="auto"> -->
                 </a>
                 <div class="title">
-                    <a href="/index.html">
+                    <a href="/players.html">
                         <spans>Draft Turnaus</spans>
                     </a>
                 </div>
-                <a class="hamburger">☰</a>
+                <!-- <a class="hamburger">☰</a>
             </div>
             <nav class="menu">
                 <ul>
@@ -46,13 +38,15 @@
                     <li class="child-page"><a href="/players.html"><span>Pelaajat</span></a></li>
                     <li class="child-page"><a href="/tournamentinfo.html"><span>Turnaus info</span></a></li>
                 </ul>
-                <div class="trademark"><span>Made by brothagenie TM</span></div>
-            </nav>
+                <div class="trademark"><span>© Kie Mattila & Joonas Ristola</span></div>
+            </nav> -->
         </header>
         <main>
             <div class="content">
+                <div class="child-page-title">
+                    <h1>Pelaajat</h1>
+                </div>
                 <div id="player-table-wrapper">
-                    
                     <div class="filter-controls">
                         <button id="main-filter-btn">Suodattimet ▼</button>
                         <div id="main-filter-panel">
@@ -125,7 +119,7 @@
                     <table class="player-table">
                         <colgroup>
                             <col class="photos-column" style="width: 220px">
-                            <col style="width: 62px">
+                            <!-- <col style="width: 62px"> -->
                             <col style="width: 62px">
                             <col style="width: 62px">
                             <col style="width: 80px">
@@ -138,7 +132,7 @@
                         <thead>
                             <tr class="thead-tr">
                                 <th class="players-th sortable-th" id="sort-name">Pelaaja <span class="sort-indicator">⇅</span></th>
-                                <th class="players-th sortable-th" id="sort-shirt_number"># <span class="sort-indicator">⇅</span></th>
+                                <!-- <th class="players-th sortable-th" id="sort-shirt_number"># <span class="sort-indicator">⇅</span></th> -->
                                 <th class="players-th sortable-th" id="sort-primary_pos">P1 <span class="sort-indicator">⇅</span></th>
                                 <th class="players-th sortable-th" id="sort-secondary_pos">P2 <span class="sort-indicator">⇅</span></th>
                                 <th class="players-th sortable-th" id="sort-stick">Maila <span class="sort-indicator">⇅</span></th>
@@ -163,9 +157,9 @@
         <footer>
             <div class="footer">
                 <div class="footerlinks-container">
-                    <div class="footerlinks">
+                    <!-- <div class="footerlinks">
                         <span>Meistä</span><span>|</span><span>Säännöt</span><span>|</span><span>Muuta</span><span>|</span><span>Tietosuoja</span>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="footertitle">
                     <span>© Draft turnaus<sup>&trade;</sup></span>
