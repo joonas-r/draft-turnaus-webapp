@@ -6,21 +6,25 @@
         <title>Draft Turnaus</title>
         <link rel="stylesheet" href="/css/base.css">
         <link rel="stylesheet" href="/css/tables.css">
-        <link rel="icon" href="/photos/logo.jpg" type="favicon.ico">
+        <link rel="icon" href="/logos/logo_default.png" type="favicon.ico">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Tourney:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-        <script src="/js/hamburger.js" defer></script>
         <script src="https://unpkg.com/htmx.org@1.9.0" defer></script>
+        <script src="/js/hamburger.js" defer></script>
+        <script src="/js/main.js" defer></script>
     </head>
     <body>
         <header>
             <div class="titlebar">
-                <a href="/index.html">
-                    <img class="logo-header" src="/photos/logo.jpg">
+                <a href="/players.html" class="logo-link">
+                    <svg width="60px" height="60px">
+                        <use href="/logos/logo_white_black.svg#logo_white_black"></use>
+                    </svg>
+                    <!-- <img src="/logos/logo_default.png" width="100px" height="auto"> -->
                 </a>
                 <div class="title">
-                    <a href="/index.html">
+                    <a href="/players.html">
                         <spans>Draft Turnaus</spans>
                     </a>
                 </div>
@@ -28,144 +32,78 @@
             </div>
             <nav class="menu">
                 <ul>
-                    <li class="child-page">
-                        <a href="/schedule.html">
-                            <span>Otteluohjelma</span>
-                        </a>
-                    </li>
-                    <li class="child-page">
-                        <a href="/stats.html">
-                            <span>Tilastot</span>
-                        </a>
-                    </li>
-                    <li class="child-page">
-                        <a href="/leaderboard.html">
-                            <span>Sarjataulukko</span>
-                        </a>
-                    </li>
-                    <li class="child-page">
-                        <a href="/players.html">
-                            <span>Pelaajat</span>
-                        </a>
-                    </li>
-                    <li class="child-page">
-                        <a href="/tournamentinfo.html">
-                            <span>Turnaus info</span>
-                        </a>
-                    </li>
+                    <li class="child-page"><a href="/schedule.html"><span>Otteluohjelma</span></a></li>
+                    <li class="child-page"><a href="/stats.html"><span>Tilastot</span></a></li>
+                    <li class="child-page"><a href="/leaderboard.html"><span>Sarjataulukko</span></a></li>
+                    <li class="child-page"><a href="/players.html"><span>Pelaajat</span></a></li>
+                    <li class="child-page"><a href="/tournamentinfo.html"><span>Turnaus info</span></a></li>
                 </ul>
-                <div class="trademark">
-                    <span>Made by brothagenie TM</span>
-                </div>
+                <div class="trademark"><span>© Kie Mattila & Joonas Ristola</span></div>
             </nav>
         </header>
         <main>
             <div class="content">
-                <div class="leaderboard-header">
-                    <div class="leaderboard-title">
-                        <h1>Otteluohjelma</h1>
+                <div class="child-page-title">
+                    <h1>Otteluohjelma</h1>
+                </div>
+                <div class="leaderboard-filter-wrapper">
+                    <div class="leaderboard-filter">
+                        <button class="leaderboard-division active" onclick="showSchedule('lohkot')">Lohkot</button>
+                        <button class="leaderboard-league" onclick="showSchedule('jatko')">Jatko-ottelut</button>
                     </div>
-                    <div class="leaderboard-selector">
-                        <button class="leaderboard-division">Lohkot</button>
-                        <button class="leaderboard-league">Jatko-ottelut</button>
+                </div>
+                <div id="section-lohkot">
+                    <div class="division-table-wrapper">
+                        <div class="division-title">
+                            <h5>Lohko A</h5>
+                        </div>
+                    
+                        <div class="table-container">
+                            <table class="division-a-table">
+                                <thead class="schedule-header">
+                                    <tr>
+                                        <th>Ottelu</th>
+                                    </tr>
+                                </thead>
+                                <tbody hx-get="/schedule/division-a" hx-trigger="load" hx-swap="innerHTML">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="division-table-wrapper">
+                        <div class="division-title">
+                            <h5>Lohko B</h5>
+                        </div>
+                        <div class="table-container">
+                            <table class="schedule-table">
+                                <thead class="schedule-header">
+                                    <tr>
+                                        <th>Ottelu</th>
+                                    </tr>
+                                </thead>
+                                <tbody hx-get="/schedule/division-b" hx-trigger="load" hx-swap="innerHTML">
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-                <div class="division-title">
-                    <h5>Lohko A</h5>
-                </div>
-                <div class="table-container">
-                    <table class="division-a-table">
-                        <thead class="schedule-header">
-                            <tr>
-                                <th>Ottelu</th>
-                            </tr>
-                        </thead>
-                        <tbody hx-get="/schedule/division-a" hx-trigger="load" hx-swap="innerHTML">
-                            <!-- <tr class="matchup-container">
-                                <td>
-                                    <div class="matchup-info-container">
-                                        <div class="matchup-info">
-                                            <span>Koti</span>
-                                            <span>12.00</span>
-                                            <span>Vieras</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <th>
-                                    <div class="matchup-teams">
-                                        <div class="team-container">
-                                            <span>Kiekkokingit</span>
-                                            <div class="team-img-container">
-                                                <img class="team-img" src="/photos/profile.png">
-                                            </div>
-                                        </div>
-                                        <span class="matchup-vs">@</span>
-                                        <div class="team-container">
-                                            <div class="team-img-container">
-                                                <img class="team-img" src="/photos/profile.png">
-                                            </div>
-                                            <span>Rautakotkat</span>
-                                        </div>
-                                    </div>
-                                </th>
-                                <td class="game-result-container">
-                                    <span>Tulos:</span>
-                                    <div class="game-result">
-                                        <span>N/A</span>
-                                    </div>
-                                </td>
-                            </tr>
-                             -->
-                        </tbody>
-                    </table>
-                </div>
-                <div class="division-title">
-                    <h5>Lohko B</h5>
-                </div>
-                <div class="table-container">
-                    <table class="schedule-table">
-                        <thead class="schedule-header">
-                            <tr>
-                                <th>Ottelu</th>
-                            </tr>
-                        </thead>
-                        <tbody hx-get="/schedule/division-b" hx-trigger="load" hx-swap="innerHTML">
-                            <!-- <tr class="matchup-container">
-                                <td>
-                                    <div class="matchup-info-container">
-                                        <div class="matchup-info">
-                                            <span>Koti</span>
-                                            <span>12.00</span>
-                                            <span>Vieras</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <th>
-                                    <div class="matchup-teams">
-                                        <div class="team-container">
-                                            <span>Kiekkokingit</span>
-                                            <div class="team-img-container">
-                                                <img class="team-img" src="/photos/profile.png">
-                                            </div>
-                                        </div>
-                                        <span class="matchup-vs">@</span>
-                                        <div class="team-container">
-                                            <div class="team-img-container">
-                                                <img class="team-img" src="/photos/profile.png">
-                                            </div>
-                                            <span>Rautakotkat</span>
-                                        </div>
-                                    </div>
-                                </th>
-                                <td class="game-result-container">
-                                    <span>Tulos:</span>
-                                    <div class="game-result">
-                                        <span>N/A</span>
-                                    </div>
-                                </td>
-                            </tr> -->
-                        </tbody>
-                    </table>
+                <div class="jatko-tables-wrapper">
+                    <div id="section-jatko" style="display: none;">
+                        <div class="division-title">
+                            <h5>Jatko-ottelut</h5>
+                        </div>
+                        <div class="table-container">
+                            <table class="division-playoffs-table">
+                                <thead class="schedule-header">
+                                    <tr>
+                                        <th>Ottelu</th>
+                                    </tr>
+                                </thead>
+                                <tbody hx-get="/schedule/playoffs" hx-trigger="load" hx-swap="innerHTML">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div> 
                 </div>
             </div>
         </main>
@@ -173,13 +111,7 @@
             <div class="footer">
                 <div class="footerlinks-container">
                     <div class="footerlinks">
-                        <span>Meistä</span>
-                        <span>|</span>
-                        <span>Säännöt</span>
-                        <span>|</span>
-                        <span>Muuta</span>
-                        <span>|</span>
-                        <span>Tietosuoja</span>
+                        <span>Meistä</span><span>|</span><span>Säännöt</span><span>|</span><span>Muuta</span><span>|</span><span>Tietosuoja</span>
                     </div>
                 </div>
                 <div class="footertitle">
