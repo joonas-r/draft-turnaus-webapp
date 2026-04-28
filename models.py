@@ -144,23 +144,43 @@ class PlayerStats(SQLModel, table=True):
 class Match(SQLModel, table=True):
     __tablename__ = "matches"
     __table_args__ = (
-        CheckConstraint("home_team_id <> away_team_id", name="ck_matches_home_neq_away"),
+        CheckConstraint(
+            "home_team_id <> away_team_id",
+            name="ck_matches_home_neq_away",
+        ),
     )
 
     match_id: Optional[int] = Field(default=None, primary_key=True)
+
     playoff: bool = Field(default=False, index=True)
 
-    home_team_id: int = Field(foreign_key="teams.team_id", index=True)
-    away_team_id: int = Field(foreign_key="teams.team_id", index=True)
+    home_team_id: int = Field(
+        foreign_key="teams.team_id",
+        index=True,
+        nullable=False,
+    )
+    away_team_id: int = Field(
+        foreign_key="teams.team_id",
+        index=True,
+        nullable=False,
+    )
 
     home_score: int = Field(default=0)
     away_score: int = Field(default=0)
 
-    home_team: Optional[Team] = Relationship(
+    match_time: Optional[str] = Field(
+        default=None,
+        max_length=10,
+    )
+
+    finished: bool = Field(default=False)
+
+    home_team: Optional["Team"] = Relationship(
         back_populates="home_matches",
         sa_relationship_kwargs={"foreign_keys": "Match.home_team_id"},
     )
-    away_team: Optional[Team] = Relationship(
+
+    away_team: Optional["Team"] = Relationship(
         back_populates="away_matches",
         sa_relationship_kwargs={"foreign_keys": "Match.away_team_id"},
     )
