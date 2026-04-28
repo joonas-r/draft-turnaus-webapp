@@ -28,7 +28,7 @@
                         <spans>Draft Turnaus</spans>
                     </a>
                 </div>
-                <!-- <a class="hamburger">☰</a>
+                <a class="hamburger">☰</a>
             </div>
             <nav class="menu">
                 <ul>
@@ -39,7 +39,7 @@
                     <li class="child-page"><a href="/tournamentinfo.html"><span>Turnaus info</span></a></li>
                 </ul>
                 <div class="trademark"><span>© Kie Mattila & Joonas Ristola</span></div>
-            </nav> -->
+            </nav>
         </header>
         <main>
             <div class="content">
@@ -98,14 +98,15 @@
                             </div>
                             
                             <div class="filter-actions" style="width: 100%; display: flex; justify-content: space-between; margin-top: 15px; border-top: 1px solid #eee; padding-top: 15px;">
-                                <button id="clear-filters-btn" type="button" style="padding: 6px 12px; background: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer;">Tyhjennä</button>
-                                <button id="apply-filters-btn" type="button" style="padding: 6px 12px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">Käytä</button>
+                                <button id="clear-filters-btn" type="button" style="padding: 6px 12px; background: #333; color: white; border: none; border-radius: 4px; cursor: pointer;">Tyhjennä</button>
+                                <button id="apply-filters-btn" type="button" style="padding: 6px 12px; background: teal; color: white; border: none; border-radius: 4px; cursor: pointer;">Käytä</button>
                             </div>
                         </div>
                         
                     </div>
 
                     <form id="filter-form" hx-get="/players" hx-trigger="filterChanged from:body" hx-target="#player-tbody">
+                        <input type="hidden" name="shirt_number" value="">
                         <input type="hidden" name="position1" value="">
                         <input type="hidden" name="position2" value="">
                         <input type="hidden" name="stick" value="">
@@ -118,20 +119,20 @@
                     
                     <table class="player-table">
                         <colgroup>
-                            <col class="photos-column" style="width: 220px">
-                            <col style="width: 62px">
-                            <col style="width: 62px">
-                            <col style="width: 62px">
-                            <col style="width: 80px">
-                            <col style="width: 62px">
-                            <col style="width: 120px">
                             <col style="width: 220px">
+                            <col style="width: 64px">
+                            <col style="width: 64px">
+                            <col style="width: 64px">
+                            <col style="width: 64px">
+                            <col style="width: 64px">
                             <col style="width: 100px">
-                            <col style="width: 100px">
+                            <col style="width: 190px">
+                            <col style="width: 84px">
+                            <col style="width: 90px">
                         </colgroup>
                         <thead>
                             <tr class="thead-tr">
-                                <th class="players-th sortable-th" id="sort-name">Pelaaja <span class="sort-indicator">⇅</span></th>
+                                <th class="players-th sortable-th left-column" id="sort-name">Pelaaja <span class="sort-indicator">⇅</span></th>
                                 <th class="players-th sortable-th" id="sort-shirt_number"># <span class="sort-indicator">⇅</span></th>
                                 <th class="players-th sortable-th" id="sort-primary_pos">P1 <span class="sort-indicator">⇅</span></th>
                                 <th class="players-th sortable-th" id="sort-secondary_pos">P2 <span class="sort-indicator">⇅</span></th>
@@ -157,9 +158,9 @@
         <footer>
             <div class="footer">
                 <div class="footerlinks-container">
-                    <!-- <div class="footerlinks">
+                    <div class="footerlinks">
                         <span>Meistä</span><span>|</span><span>Säännöt</span><span>|</span><span>Muuta</span><span>|</span><span>Tietosuoja</span>
-                    </div> -->
+                    </div>
                 </div>
                 <div class="footertitle">
                     <span>© Draft turnaus<sup>&trade;</sup></span>
