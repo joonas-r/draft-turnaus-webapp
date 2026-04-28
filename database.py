@@ -34,13 +34,13 @@ def seed_mock_data():
         # Teams must be committed first so they get IDs
         # Players and matches reference these IDs
 
-        team_a1 = Team(team_name="Kiekkokingit",  group="A", wins=4, draws=1, losses=0, games=5, goals_for=18, goals_against=6)
-        team_a2 = Team(team_name="Jääkarhut",     group="A", wins=2, draws=1, losses=2, games=5, goals_for=12, goals_against=11)
-        team_a3 = Team(team_name="HC Metsurit",   group="A", wins=0, draws=0, losses=5, games=5, goals_for=4,  goals_against=17)
-        team_b1 = Team(team_name="Rautakotkat",   group="B", wins=3, draws=2, losses=0, games=5, goals_for=15, goals_against=7)
-        team_b2 = Team(team_name="Jäätiikerit",   group="B", wins=2, draws=0, losses=3, games=5, goals_for=10, goals_against=12)
-        team_b3 = Team(team_name="Lumivyöry",     group="B", wins=0, draws=2, losses=3, games=5, goals_for=6,  goals_against=12)
-
+        team_a1 = Team(team_name="HC Metsurit", logo_url='logos/hc-metsurit.svg#hc-metsurit',   group="A", wins=0, draws=0, losses=5, games=5, goals_for=4,  goals_against=17)
+        team_a2 = Team(team_name="Kiekkokingit",   logo_url='logos/kiekkokingit.svg#kiekkokingit',group="A", wins=3, draws=2, losses=0, games=5, goals_for=15, goals_against=7)
+        team_a3 = Team(team_name="Härkäviisikkö",   logo_url='logos/harkaviisikko.svg#harkaviisikko',group="A", wins=2, draws=0, losses=3, games=5, goals_for=10, goals_against=12)
+        team_b1 = Team(team_name="Teräskotkat",  logo_url='logos/teraskotkat.svg#teraskotkat',group="B", wins=4, draws=1, losses=0, games=5, goals_for=18, goals_against=6)
+        team_b2 = Team(team_name="Kiekko-orit",     logo_url='logos/kiekko-orit.svg#kiekko-orit',group="B", wins=0, draws=2, losses=3, games=5, goals_for=6,  goals_against=12)
+        team_b3 = Team(team_name="Jääkarhut",     logo_url='logos/jaakarhut.svg#jaakarhut',group="B", wins=2, draws=1, losses=2, games=5, goals_for=12, goals_against=11)
+        
         for team in [team_a1, team_a2, team_a3, team_b1, team_b2, team_b3]:
             session.add(team)
         session.commit()  # commit so teams get their IDs before players reference them
@@ -119,17 +119,19 @@ def seed_mock_data():
 
         matches = [
             # Group A matches
-            Match(home_team_id=team_a1.team_id, away_team_id=team_a2.team_id, home_score=3, away_score=1, playoff=False),
-            Match(home_team_id=team_a2.team_id, away_team_id=team_a3.team_id, home_score=2, away_score=0, playoff=False),
-            Match(home_team_id=team_a1.team_id, away_team_id=team_a3.team_id, home_score=5, away_score=1, playoff=False),
-            Match(home_team_id=team_a2.team_id, away_team_id=team_a1.team_id, home_score=2, away_score=3, playoff=False),
-            Match(home_team_id=team_a3.team_id, away_team_id=team_a1.team_id, home_score=1, away_score=4, playoff=False),
+            Match(home_team_id=team_a1.team_id, away_team_id=team_a2.team_id, home_score=3, away_score=1, playoff=False, match_time="10.30", finished=True),
+            Match(home_team_id=team_a3.team_id, away_team_id=team_a2.team_id, home_score=2, away_score=0, playoff=False, match_time="11.30", finished=True),
+            Match(home_team_id=team_a3.team_id, away_team_id=team_a1.team_id, home_score=5, away_score=1, playoff=False, match_time="12.30", finished=False),
             # Group B matches
-            Match(home_team_id=team_b1.team_id, away_team_id=team_b2.team_id, home_score=4, away_score=2, playoff=False),
-            Match(home_team_id=team_b2.team_id, away_team_id=team_b3.team_id, home_score=3, away_score=1, playoff=False),
-            Match(home_team_id=team_b1.team_id, away_team_id=team_b3.team_id, home_score=3, away_score=3, playoff=False),
-            Match(home_team_id=team_b3.team_id, away_team_id=team_b1.team_id, home_score=2, away_score=3, playoff=False),
-            Match(home_team_id=team_b2.team_id, away_team_id=team_b1.team_id, home_score=1, away_score=2, playoff=False),
+            Match(home_team_id=team_b1.team_id, away_team_id=team_b2.team_id, home_score=4, away_score=2, playoff=False, match_time="11.15", finished=True),
+            Match(home_team_id=team_b3.team_id, away_team_id=team_b2.team_id, home_score=3, away_score=1, playoff=False, match_time="12.15", finished=False),
+            Match(home_team_id=team_b3.team_id, away_team_id=team_b1.team_id, home_score=3, away_score=3, playoff=False, match_time="13.15", finished=False),
+            # Playoff matches
+            Match(home_team_id=team_b1.team_id, away_team_id=team_b2.team_id, home_score=4, away_score=2, playoff=True, match_time="14.30", finished=False),
+            Match(home_team_id=team_b2.team_id, away_team_id=team_b3.team_id, home_score=3, away_score=1, playoff=True, match_time="15.30", finished=False),
+            Match(home_team_id=team_b1.team_id, away_team_id=team_b3.team_id, home_score=3, away_score=3, playoff=True, match_time="16.30", finished=True),
+            Match(home_team_id=team_b3.team_id, away_team_id=team_b1.team_id, home_score=2, away_score=3, playoff=True, match_time="17.30", finished=False),
+            Match(home_team_id=team_b2.team_id, away_team_id=team_b1.team_id, home_score=1, away_score=2, playoff=True, match_time="19.00", finished=False),
         ]
 
         for match in matches:
