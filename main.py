@@ -196,6 +196,9 @@ async def get_players(
 # SCHEDULE
 # -------------------------------------------------------
 
+# Variables to store playoff game templates
+
+
 def generate_match_rows(matches, session):
     game_count = 0
     rows = ""
@@ -203,43 +206,37 @@ def generate_match_rows(matches, session):
         # fetch team objects using their IDs stored in match
         home = session.get(Team, match.home_team_id)
         away = session.get(Team, match.away_team_id)
-        time = match.match_time
-        if home.team_id == 1 or home.team_id == 3:
-            team_division = "AG"
-        else:
-            team_division = "BG"
         home_logo = home.logo_url or "profile.png"
         away_logo = away.logo_url or "profile.png"
         game_count += 1
-        # game_name = f"{team_division}{game_count}"
         if match.finished == False:
             rows += f"""
-            <tr class="matchup-container">
-                <td class="game-header">
-                    <span>{time}</span>
-                </td>
-                <td>
-                    <div class="matchup-teams">
-                        <div class="team-container home-team">
-                            <span>{home.team_name}</span>
-                            <div class="team-img-container">
-                                <svg width="50px" height="50px">
-                                    <use class="team-img" href="{home_logo}"></use>
-                                </svg>
+                <tr class="matchup-container">
+                    <td class="game-header">
+                        <span>{match.match_time}</span>
+                    </td>
+                    <td>
+                        <div class="matchup-teams">
+                            <div class="team-container home-team">
+                                <span>{home.team_name}</span>
+                                <div class="team-img-container">
+                                    <svg width="50px" height="50px">
+                                        <use class="team-img" href="{home_logo}"></use>
+                                    </svg>
+                                </div>
+                            </div>
+                            <span class="matchup-vs">@</span>
+                            <div class="team-container away-team">
+                                <div class="team-img-container">
+                                    <svg width="50px" height="50px">
+                                        <use class="team-img" href="{away_logo}"></use>
+                                    </svg>
+                                </div>
+                                <span>{away.team_name}</span>
                             </div>
                         </div>
-                        <span class="matchup-vs">@</span>
-                        <div class="team-container away-team">
-                            <div class="team-img-container">
-                                <svg width="50px" height="50px">
-                                    <use class="team-img" href="{away_logo}"></use>
-                                </svg>
-                            </div>
-                            <span>{away.team_name}</span>
-                        </div>
-                    </div>
-                </td>
-            </tr>
+                    </td>
+                </tr>
             """
         else:
             if match.home_score > match.away_score:
@@ -284,7 +281,7 @@ def generate_match_rows(matches, session):
                         </td>
                         
                     </tr>
-                    """
+                """
             else:
                 rows += f"""
                     <tr class="matchup-container">
@@ -327,15 +324,17 @@ def generate_match_rows(matches, session):
                         </td>
                         
                     </tr>
-                    """
+                """
     return rows
 
 def generate_playoff_rows(matches, session):
-    if matches == []:
-        empty_matches = f"""
-            <tr class="matchup-container playoff-1">
+    # Variables to store playoff game templates
+    playoff_qf1 = f"""
+            <tr class="matchup-container">
+                <td class="game-header">
+                    <span>14:30</span>
+                </td>
                 <td>
-                    <span>QF1</span>
                     <div class="matchup-teams">
                         <div class="team-container home-team">
                             <span>B2</span>
@@ -356,10 +355,19 @@ def generate_playoff_rows(matches, session):
                         </div>
                     </div>
                 </td>
-            </tr>
-            <tr class="matchup-container playoff-2">
                 <td>
-                    <span>QF2</span>
+                    <div class="game-footer">
+                        <span>QF1</span>
+                    </div>
+                </td>
+            </tr>
+        """
+    playoff_qf2 = f"""
+            <tr class="matchup-container">
+                <td class="game-header">
+                    <span>15:30</span>
+                </td>
+                <td>
                     <div class="matchup-teams">
                         <div class="team-container home-team">
                             <span>A2</span>
@@ -380,10 +388,19 @@ def generate_playoff_rows(matches, session):
                         </div>
                     </div>
                 </td>
-            </tr>
-            <tr class="matchup-container semifinal-1">
                 <td>
-                    <span>SF1</span>
+                    <div class="game-footer">
+                        <span>QF2</span>
+                    </div>
+                </td>
+            </tr>
+        """
+    playoff_sf1 = f"""
+            <tr class="matchup-container">
+                <td class="game-header">
+                    <span>16:30</span>
+                </td>
+                <td>
                     <div class="matchup-teams">
                         <div class="team-container home-team">
                             <span>A1</span>
@@ -404,10 +421,19 @@ def generate_playoff_rows(matches, session):
                         </div>
                     </div>
                 </td>
-            </tr>
-            <tr class="matchup-container semifinal-2">
                 <td>
-                    <span>SF2</span>
+                    <div class="game-footer">
+                        <span>SF1</span>
+                    </div>
+                </td>
+            </tr>
+        """
+    playoff_sf2 = f"""
+            <tr class="matchup-container">
+                <td class="game-header">
+                    <span>17:30</span>
+                </td>
+                <td>
                     <div class="matchup-teams">
                         <div class="team-container home-team">
                             <span>B1</span>
@@ -428,10 +454,19 @@ def generate_playoff_rows(matches, session):
                         </div>
                     </div>
                 </td>
-            </tr>
-            <tr class="matchup-container final">
                 <td>
-                    <span>Finaali</span>
+                    <div class="game-footer">
+                        <span>SF2</span>
+                    </div>
+                </td>
+            </tr>
+        """
+    playoff_final = f"""
+            <tr class="matchup-container">
+                <td class="game-header">
+                    <span>19:00</span>
+                </td>
+                <td>
                     <div class="matchup-teams">
                         <div class="team-container home-team">
                             <span>SF2</span>
@@ -452,6 +487,170 @@ def generate_playoff_rows(matches, session):
                         </div>
                     </div>
                 </td>
+                <td>
+                    <div class="game-footer">
+                        <span>FINAALI</span>
+                    </div>
+                </td>
+            </tr>
+            """
+    
+    if matches == []:
+        empty_matches = f"""
+            <tr class="matchup-container">
+                <td class="game-header">
+                    <span>14:30</span>
+                </td>
+                <td>
+                    <div class="matchup-teams">
+                        <div class="team-container home-team">
+                            <span>B2</span>
+                            <div class="team-img-container">
+                                <svg width="42px" height="42px">
+                                    <use class="team-img" href="/logos/logo_black_white.svg#logo_black_white"></use>
+                                </svg>
+                            </div>
+                        </div>
+                        <span class="matchup-vs">@</span>
+                        <div class="team-container away-team">
+                            <div class="team-img-container">
+                                <svg width="42px" height="42px">
+                                    <use class="team-img" href="/logos/logo_black_white.svg#logo_black_white"></use>
+                                </svg>
+                            </div>
+                            <span>A3</span>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="game-footer">
+                        <span>QF1</span>
+                    </div>
+                </td>
+            </tr>
+            <tr class="matchup-container">
+                <td class="game-header">
+                    <span>15:30</span>
+                </td>
+                <td>
+                    <div class="matchup-teams">
+                        <div class="team-container home-team">
+                            <span>A2</span>
+                            <div class="team-img-container">
+                                <svg width="42px" height="42px">
+                                    <use class="team-img" href="/logos/logo_black_white.svg#logo_black_white"></use>
+                                </svg>
+                            </div>
+                        </div>
+                        <span class="matchup-vs">@</span>
+                        <div class="team-container away-team">
+                            <div class="team-img-container">
+                                <svg width="42px" height="42px">
+                                    <use class="team-img" href="/logos/logo_black_white.svg#logo_black_white"></use>
+                                </svg>
+                            </div>
+                            <span>B3</span>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="game-footer">
+                        <span>QF2</span>
+                    </div>
+                </td>
+            </tr>
+            <tr class="matchup-container">
+                <td class="game-header">
+                    <span>16:30</span>
+                </td>
+                <td>
+                    <div class="matchup-teams">
+                        <div class="team-container home-team">
+                            <span>A1</span>
+                            <div class="team-img-container">
+                                <svg width="42px" height="42px">
+                                    <use class="team-img" href="/logos/logo_black_white.svg#logo_black_white"></use>
+                                </svg>
+                            </div>
+                        </div>
+                        <span class="matchup-vs">@</span>
+                        <div class="team-container away-team">
+                            <div class="team-img-container">
+                                <svg width="42px" height="42px">
+                                    <use class="team-img" href="/logos/logo_black_white.svg#logo_black_white"></use>
+                                </svg>
+                            </div>
+                            <span>QF1</span>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="game-footer">
+                        <span>SF1</span>
+                    </div>
+                </td>
+            </tr>
+            <tr class="matchup-container">
+                <td class="game-header">
+                    <span>17:30</span>
+                </td>
+                <td>
+                    <div class="matchup-teams">
+                        <div class="team-container home-team">
+                            <span>B1</span>
+                            <div class="team-img-container">
+                                <svg width="42px" height="42px">
+                                    <use class="team-img" href="/logos/logo_black_white.svg#logo_black_white"></use>
+                                </svg>
+                            </div>
+                        </div>
+                        <span class="matchup-vs">@</span>
+                        <div class="team-container away-team">
+                            <div class="team-img-container">
+                                <svg width="42px" height="42px">
+                                    <use class="team-img" href="/logos/logo_black_white.svg#logo_black_white"></use>
+                                </svg>
+                            </div>
+                            <span>QF2</span>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="game-footer">
+                        <span>SF2</span>
+                    </div>
+                </td>
+            </tr>
+            <tr class="matchup-container">
+                <td class="game-header">
+                    <span>19:00</span>
+                </td>
+                <td>
+                    <div class="matchup-teams">
+                        <div class="team-container home-team">
+                            <span>SF2</span>
+                            <div class="team-img-container">
+                                <svg width="42px" height="42px">
+                                    <use class="team-img" href="/logos/logo_black_white.svg#logo_black_white"></use>
+                                </svg>
+                            </div>
+                        </div>
+                        <span class="matchup-vs">@</span>
+                        <div class="team-container away-team">
+                            <div class="team-img-container">
+                                <svg width="42px" height="42px">
+                                    <use class="team-img" href="/logos/logo_black_white.svg#logo_black_white"></use>
+                                </svg>
+                            </div>
+                            <span>SF1</span>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="game-footer">
+                        <span>FINAALI</span>
+                    </div>
+                </td>
             </tr>
             """
         
@@ -460,59 +659,159 @@ def generate_playoff_rows(matches, session):
         game_count = 0
         rows = ""
         playoff_stage = ""
+        stage_names = ["QF1", "QF2", "SF1", "SF2", "Finaali"]
         
         for match in matches:
             # fetch team objects using their IDs stored in match
             home = session.get(Team, match.home_team_id)
             away = session.get(Team, match.away_team_id)
-            match_id = session.get(Team, match.match_id)
             game_count += 1
-            if game_count == 1:
-                playoff_stage = "QF1"
-            if game_count == 2:
-                playoff_stage = "QF2"
-            if game_count == 3:
-                playoff_stage = "SF1"
-            if game_count == 4:
-                playoff_stage = "SF2"
-            if game_count == 5:
-                playoff_stage = "Finaali"
+            playoff_stage = stage_names[game_count]
             
+            # stages = [playoff_qf2, playoff_sf1, playoff_sf2, playoff_final]
+            # playoff_stage = stages[game_count - 1]
+
             home_logo = home.logo_url or "profile.png"
             away_logo = away.logo_url or "profile.png"
-            rows += f"""
-                <tr class="matchup-container">
-                    <td>
-                        <span>{playoff_stage}</span>
-                        <div class="matchup-teams">
-                            <div class="team-container home-team">
-                                <span>{home.team_name}</span>
-                                <div class="team-img-container">
-                                    <svg width="50px" height="50px">
-                                        <use class="team-img" href="{home_logo}"></use>
-                                    </svg>
+            if match.finished == False:
+                rows += f"""
+                        <tr class="matchup-container">
+                            <td class="game-header">
+                                <span>{match.match_time}</span>
+                            </td>
+                            <td>
+                                <div class="matchup-teams">
+                                    <div class="team-container home-team">
+                                        <span>{home.team_name}</span>
+                                        <div class="team-img-container">
+                                            <svg width="50px" height="50px">
+                                                <use class="team-img" href="{home_logo}"></use>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <span class="matchup-vs">@</span>
+                                    <div class="team-container away-team">
+                                        <div class="team-img-container">
+                                            <svg width="50px" height="50px">
+                                                <use class="team-img" href="{away_logo}"></use>
+                                            </svg>
+                                        </div>
+                                        <span>{away.team_name}</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <span class="matchup-vs">@</span>
-                            <div class="team-container away-team">
-                                <div class="team-img-container">
-                                    <svg width="50px" height="50px">
-                                        <use class="team-img" href="{away_logo}"></use>
-                                    </svg>
+                            </td>
+                            <td>
+                                <div class="game-footer">
+                                    <span>{playoff_stage}</span>
                                 </div>
-                                <span>{away.team_name}</span>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="game-result-container">
-                        <span>Tulos:</span>
-                        <div class="game-result">
-                            <span>{match.home_score} - {match.away_score}</span>
-                        </div>
-                    </td>
-                </tr>
-                """
-        return rows
+                            </td>
+                        </tr>
+                    """
+            else:
+                if match.home_score > match.away_score:
+                    rows += f"""
+                        <tr class="matchup-container">
+                            <td class="game-header">
+                                <div class="game-result">
+                                    <span>
+                                        <span style="font-weight: 900">
+                                            {match.home_score}
+                                        </span> -
+                                        <span>
+                                            {match.away_score}
+                                        </span>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="matchup-teams">
+                                    <div class="team-container home-team">
+                                        <span style="font-weight: bolder">
+                                            {home.team_name}
+                                        </span>
+                                        <div class="team-img-container">
+                                            <svg width="50px" height="50px">
+                                                <use class="team-img" href="{home_logo}"></use>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <span class="matchup-vs">@</span>
+                                    <div class="team-container away-team">
+                                        <div class="team-img-container">
+                                            <svg width="50px" height="50px">
+                                                <use class="team-img" href="{away_logo}"></use>
+                                            </svg>
+                                        </div>
+                                        <span>
+                                            {away.team_name}
+                                        </span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="game-footer">
+                                    <span>{playoff_stage}</span>
+                                </div>
+                            </td>
+                        </tr>
+                    """
+                else:
+                    rows += f"""
+                        <tr class="matchup-container">
+                            <td class="game-result-container">
+                                <div class="game-result">
+                                    <span>
+                                        <span>
+                                            {match.home_score}
+                                        </span> -
+                                        <span style="font-weight: 900">
+                                            {match.away_score}
+                                        </span>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="matchup-teams">
+                                    <div class="team-container home-team">
+                                        <span>
+                                            {home.team_name}
+                                        </span>
+                                        <div class="team-img-container">
+                                            <svg width="50px" height="50px">
+                                                <use class="team-img" href="{home_logo}"></use>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <span class="matchup-vs">@</span>
+                                    <div class="team-container away-team">
+                                        <div class="team-img-container">
+                                            <svg width="50px" height="50px">
+                                                <use class="team-img" href="{away_logo}"></use>
+                                            </svg>
+                                        </div>
+                                        <span style="font-weight: bolder">
+                                            {away.team_name}
+                                        </span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="game-footer">
+                                    <span>{playoff_stage}</span>
+                                </div>
+                            </td>
+                        </tr>
+                    """
+
+        remaining_placeholders = {
+            1: playoff_qf2 + playoff_sf1 + playoff_sf2 + playoff_final,
+            2: playoff_sf1 + playoff_sf2 + playoff_final,
+            3: playoff_sf2 + playoff_final,
+            4: playoff_final,
+            5: "",
+        }
+        rows += remaining_placeholders.get(game_count, "")
+    return rows
 
 @app.get("/schedule/division-a", response_class=HTMLResponse)
 async def get_schedule_a():
