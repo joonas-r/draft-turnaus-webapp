@@ -33,7 +33,6 @@ def seed_mock_data():
         # --- TEAMS ---
         # Teams must be committed first so they get IDs
         # Players and matches reference these IDs
-
         team_a1 = Team(team_name="HC Metsurit", logo_url='logos/hc-metsurit.svg#hc-metsurit',   group="A", wins=0, draws=0, losses=5, games=5, goals_for=4,  goals_against=17)
         team_a2 = Team(team_name="Kiekkokingit",   logo_url='logos/kiekkokingit.svg#kiekkokingit',group="A", wins=3, draws=2, losses=0, games=5, goals_for=15, goals_against=7)
         team_a3 = Team(team_name="Härkäviisikkö",   logo_url='logos/harkaviisikko.svg#harkaviisikko',group="A", wins=2, draws=0, losses=3, games=5, goals_for=10, goals_against=12)
@@ -53,7 +52,7 @@ def seed_mock_data():
         players = [
             # --- TEAM A1 ---
             Player(team_id=team_a1.team_id, name="Jan-Emil Sillanpaa", shirt_number=87, primary_pos="K", secondary_pos="H", lefthanded=True,  age=24, experience=3,  playstyle="Kahden suunnan hyökkääjä", licenced=True,  recruiter=""),
-            Player(team_id=team_a1.team_id, name="Mikko Korhonen",      shirt_number=11, primary_pos="P", secondary_pos="K", lefthanded=False, age=28, experience=5,  playstyle="Hyökkäävä puolustaja",     licenced=True,  recruiter=""),
+            Player(team_id=team_a1.team_id, name="Oinas-Kukkonen Joel",      shirt_number=11, primary_pos="P", secondary_pos="K", lefthanded=False, age=28, experience=5,  playstyle="Hyökkäävä puolustaja",     licenced=True,  recruiter=""),
             Player(team_id=team_a1.team_id, name="Ville Mäkinen",       shirt_number=34, primary_pos="H", secondary_pos="K", lefthanded=True,  age=22, experience=1,  playstyle="Graindaaja",              licenced=False, recruiter=""),
             Player(team_id=team_a1.team_id, name="Tero Leinonen",       shirt_number=55, primary_pos="P", secondary_pos=None,lefthanded=False, age=31, experience=9,  playstyle="Puolustava puolustaja",    licenced=True,  recruiter=""),
             Player(team_id=team_a1.team_id, name="Olli Saarinen",       shirt_number=19, primary_pos="MV",secondary_pos=None,lefthanded=True,  age=26, experience=4,  playstyle="Aggressiivinen torjuja",   licenced=True,  recruiter=""),
@@ -117,21 +116,34 @@ def seed_mock_data():
         # home_team_id and away_team_id reference teams.team_id
         # playoff=False means group stage, playoff=True means playoff
 
+
+
+
+        # Halli 1
+        # team_a1 = Team(team_name="HC Metsurit",   group="A", wins=0, draws=0, losses=5, games=5, goals_for=4,  goals_against=17)
+        # team_a2 = Team(team_name="Kiekkokingit",   group="B", wins=3, draws=2, losses=0, games=5, goals_for=15, goals_against=7)
+        # team_a3 = Team(team_name="Härkäviisikko",   group="B", wins=2, draws=0, losses=3, games=5, goals_for=10, goals_against=12)
+        
+        # Halli 2
+        # team_b1 = Team(team_name="Teräskotkat",  group="A", wins=4, draws=1, losses=0, games=5, goals_for=18, goals_against=6)
+        # team_b2 = Team(team_name="Kiekko-orit",     group="B", wins=0, draws=2, losses=3, games=5, goals_for=6,  goals_against=12)
+        # team_b3 = Team(team_name="Jääkarhut",     group="A", wins=2, draws=1, losses=2, games=5, goals_for=12, goals_against=11)
+
         matches = [
             # Group A matches
-            Match(home_team_id=team_a1.team_id, away_team_id=team_a2.team_id, home_score=3, away_score=1, playoff=False, match_time="10.30", finished=True),
-            Match(home_team_id=team_a3.team_id, away_team_id=team_a2.team_id, home_score=2, away_score=0, playoff=False, match_time="11.30", finished=True),
-            Match(home_team_id=team_a3.team_id, away_team_id=team_a1.team_id, home_score=5, away_score=1, playoff=False, match_time="12.30", finished=False),
+            Match(home_team_id=team_a1.team_id, away_team_id=team_a2.team_id, home_score=3, away_score=1, playoff=False, match_time="10:30", finished=True),
+            Match(home_team_id=team_a3.team_id, away_team_id=team_a2.team_id, home_score=2, away_score=0, playoff=False, match_time="11:30", finished=True),
+            Match(home_team_id=team_a3.team_id, away_team_id=team_a1.team_id, home_score=5, away_score=1, playoff=False, match_time="12:30", finished=True),
             # Group B matches
-            Match(home_team_id=team_b1.team_id, away_team_id=team_b2.team_id, home_score=4, away_score=2, playoff=False, match_time="11.15", finished=True),
-            Match(home_team_id=team_b3.team_id, away_team_id=team_b2.team_id, home_score=3, away_score=1, playoff=False, match_time="12.15", finished=False),
-            Match(home_team_id=team_b3.team_id, away_team_id=team_b1.team_id, home_score=3, away_score=3, playoff=False, match_time="13.15", finished=False),
+            Match(home_team_id=team_b1.team_id, away_team_id=team_b2.team_id, home_score=4, away_score=2, playoff=False, match_time="11:15", finished=True),
+            Match(home_team_id=team_b3.team_id, away_team_id=team_b2.team_id, home_score=3, away_score=1, playoff=False, match_time="12:15", finished=True),
+            Match(home_team_id=team_b3.team_id, away_team_id=team_b1.team_id, home_score=3, away_score=3, playoff=False, match_time="13:15", finished=True),
             # Playoff matches
-            Match(home_team_id=team_b1.team_id, away_team_id=team_b2.team_id, home_score=4, away_score=2, playoff=True, match_time="14.30", finished=False),
-            Match(home_team_id=team_b2.team_id, away_team_id=team_b3.team_id, home_score=3, away_score=1, playoff=True, match_time="15.30", finished=False),
-            Match(home_team_id=team_b1.team_id, away_team_id=team_b3.team_id, home_score=3, away_score=3, playoff=True, match_time="16.30", finished=True),
-            Match(home_team_id=team_b3.team_id, away_team_id=team_b1.team_id, home_score=2, away_score=3, playoff=True, match_time="17.30", finished=False),
-            Match(home_team_id=team_b2.team_id, away_team_id=team_b1.team_id, home_score=1, away_score=2, playoff=True, match_time="19.00", finished=False),
+            Match(home_team_id=team_b1.team_id, away_team_id=team_b2.team_id, home_score=-4, away_score=2, playoff=True, match_time="14:30", finished=True),
+            Match(home_team_id=team_b2.team_id, away_team_id=team_b3.team_id, home_score=1, away_score=1, playoff=True, match_time="15:30", finished=True),
+            Match(home_team_id=team_b1.team_id, away_team_id=team_b3.team_id, home_score=2, away_score=3, playoff=True, match_time="16:30", finished=False),
+            # Match(home_team_id=team_b3.team_id, away_team_id=team_b1.team_id, home_score=2, away_score=3, playoff=True, match_time="17:30", finished=False),
+            # Match(home_team_id=team_b2.team_id, away_team_id=team_b1.team_id, home_score=1, away_score=2, playoff=True, match_time="19:00", finished=False),
         ]
 
         for match in matches:
