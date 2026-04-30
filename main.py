@@ -136,6 +136,7 @@ async def get_players(
         sort_map = {
             "name": Player.name,
             "shirt_number": Player.shirt_number,
+            "team_id" : Player.team_id,
             "primary_pos": Player.primary_pos,
             "secondary_pos": Player.secondary_pos,
             "stick": Player.lefthanded,
@@ -156,12 +157,14 @@ async def get_players(
         
         players = session.exec(query).all()
         if players == []:
-            empty = f"""
-                <div class="no-filter-match">
-                    <span>Mikään pelaaja ei vastannut hakua.</span>
-                </div>
-                """
-            return empty
+            empty_player = f"""
+                <tr>
+                    <td colspan="9" style="text-align:left; padding: 20px;">
+                        Mikään pelaaja ei vastannut hakua.
+                    </td>
+                </tr>
+            """
+            return empty_player
         else:
             rows = ""
             for player in players:
@@ -170,7 +173,7 @@ async def get_players(
                 image            = player.image_url or "profile.png"
                 rows += f"""
                     <tr class="tbody-tr">
-                        <td>
+                        <td class="left-column">
                             <div class="player-container">
                                 <div class="player-img-container">
                                     <img src="/photos/{image}">
@@ -178,7 +181,8 @@ async def get_players(
                                 <span>{player.name}</span>
                             </div>
                         </td>
-                        <td>{player.shirt_number}</td>
+                        <td>{player.shirt_number or ""}</td>
+                        <td>{player.team_id or ""}</td>
                         <td>{player.primary_pos or "-"}</td>
                         <td>{player.secondary_pos or "-"}</td>
                         <td>{stick_display}</td>
@@ -245,10 +249,10 @@ def generate_match_rows(matches, session):
                         <td class="game-header">
                             <div class="game-result">
                                 <span>
-                                    <span style="font-weight: 900">
+                                    <span style="font-weight: 700">
                                         {match.home_score}
                                     </span> -
-                                    <span>
+                                    <span style="font-weight: normal">
                                         {match.away_score}
                                     </span>
                                 </span>
@@ -257,7 +261,7 @@ def generate_match_rows(matches, session):
                         <td>
                             <div class="matchup-teams">
                                 <div class="team-container home-team">
-                                    <span style="font-weight: bolder">
+                                    <span style="font-weight: 700">
                                         {home.team_name}
                                     </span>
                                     <div class="team-img-container">
@@ -273,7 +277,7 @@ def generate_match_rows(matches, session):
                                             <use class="team-img" href="{away_logo}"></use>
                                         </svg>
                                     </div>
-                                    <span>
+                                    <span style="font-weight: normal">
                                         {away.team_name}
                                     </span>
                                 </div>
@@ -285,13 +289,13 @@ def generate_match_rows(matches, session):
             else:
                 rows += f"""
                     <tr class="matchup-container">
-                        <td class="game-result-container">
+                        <td class="game-header">
                             <div class="game-result">
                                 <span>
-                                    <span>
+                                    <span style="font-weight: normal">
                                         {match.home_score}
                                     </span> -
-                                    <span style="font-weight: 900">
+                                    <span style="font-weight: 700">
                                         {match.away_score}
                                     </span>
                                 </span>
@@ -300,7 +304,7 @@ def generate_match_rows(matches, session):
                         <td>
                             <div class="matchup-teams">
                                 <div class="team-container home-team">
-                                    <span>
+                                    <span style="font-weight: normal">
                                         {home.team_name}
                                     </span>
                                     <div class="team-img-container">
@@ -316,7 +320,7 @@ def generate_match_rows(matches, session):
                                             <use class="team-img" href="{away_logo}"></use>
                                         </svg>
                                     </div>
-                                    <span style="font-weight: bolder">
+                                    <span style="font-weight: 700">
                                         {away.team_name}
                                     </span>
                                 </div>
@@ -714,7 +718,7 @@ def generate_playoff_rows(matches, session):
                             <td class="game-header">
                                 <div class="game-result">
                                     <span>
-                                        <span style="font-weight: 900">
+                                        <span style="font-weight: 700">
                                             {match.home_score}
                                         </span> -
                                         <span>
@@ -726,7 +730,7 @@ def generate_playoff_rows(matches, session):
                             <td>
                                 <div class="matchup-teams">
                                     <div class="team-container home-team">
-                                        <span style="font-weight: bolder">
+                                        <span style="font-weight: 700">
                                             {home.team_name}
                                         </span>
                                         <div class="team-img-container">
@@ -758,13 +762,13 @@ def generate_playoff_rows(matches, session):
                 else:
                     rows += f"""
                         <tr class="matchup-container">
-                            <td class="game-result-container">
+                            <td class="game-header">
                                 <div class="game-result">
                                     <span>
                                         <span>
                                             {match.home_score}
                                         </span> -
-                                        <span style="font-weight: 900">
+                                        <span style="font-weight: 700">
                                             {match.away_score}
                                         </span>
                                     </span>
@@ -789,7 +793,7 @@ def generate_playoff_rows(matches, session):
                                                 <use class="team-img" href="{away_logo}"></use>
                                             </svg>
                                         </div>
-                                        <span style="font-weight: bolder">
+                                        <span style="font-weight: 700">
                                             {away.team_name}
                                         </span>
                                     </div>
