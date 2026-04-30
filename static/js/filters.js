@@ -2,17 +2,26 @@
 const mainFilterBtn = document.getElementById('main-filter-btn');
 const mainFilterPanel = document.getElementById('main-filter-panel');
 
+// 1. Toggle Menu
 mainFilterBtn?.addEventListener('click', (e) => {
-    e.stopPropagation();
+    // Simple toggle
     mainFilterPanel.classList.toggle('open');
 });
 
-document.addEventListener('click', function() {
-    mainFilterPanel.classList.remove('open');
+// Close when clicking outside
+document.addEventListener('click', (e) => {
+    const isClickInsidePanel = mainFilterPanel.contains(e.target);
+    const isClickOnButton = mainFilterBtn.contains(e.target);
+
+    if (!isClickInsidePanel && !isClickOnButton) {
+        mainFilterPanel.classList.remove('open');
+    }
 });
 
-mainFilterPanel.addEventListener('click', function(e) {
-    e.stopPropagation(); // prevent panel clicks from closing it
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        mainFilterPanel.classList.remove('open');
+    }
 });
 
 // 2. Clear Filters Button Listener
@@ -30,14 +39,14 @@ document.getElementById('apply-filters-btn')?.addEventListener('click', () => {
 
 // 4. Sorting Listeners (The "event listener portion" for headers)
 const sortableFields = [
-    'name', 'shirt_number', 'primary_pos', 'secondary_pos', 
+    'name', 'shirt_number', 'team_id', 'primary_pos', 'secondary_pos', 
     'stick', 'age', 'experience', 'playstyle', 'licenced', 'recruiter'];
 sortableFields.forEach(field => {
     document.getElementById('sort-' + field)?.addEventListener('click', () => handleSort(field));
 });
 
 function updateFilters() {
-    const filters = ['position1', 'position2', 'stick', 'playstyle', 'licenced', 'recruiter'];
+    const filters = ['team_id', 'position1', 'position2', 'stick', 'playstyle', 'licenced', 'recruiter'];
     filters.forEach(filterName => {
         // Updated to search within the new single panel structure
         const group = document.getElementById('filter-' + filterName); 
@@ -85,6 +94,8 @@ function updateSortArrows() {
         activeIndicator.textContent = currentSortOrder === 'asc' ? '↓' : '↑';
     }
 }
+
+
 
 
 // sortableFields.forEach(field => {
