@@ -7,13 +7,7 @@
 }
 
 :root {
-    --header-height: 76px;
-}
-
-@media (min-width: 768px) {
-    :root {
-        --header-height: 118px;
-    }
+    --header-height: 64px;
 }
 
 html {
@@ -22,9 +16,9 @@ html {
 }
 
 .content {
-    width: 100%;
+    width: 100vw;
     background-color: #fff;
-    padding: 30px 20px;
+    padding: 30px 16px;
 }
 
 @media (min-width: 768px) {
@@ -53,36 +47,70 @@ main {
 }
 
 h1 {
-    font-size: 42px;
+    font-family: 'Bebas Neue';
+    font-weight: bolder;
 }
 
-h5 {
-    font-size: 26px;
+h2,
+h3,
+h4,
+h5,
+nav a,
+button,
+thead th {
+    font-family: 'Bebas Neue';
+    font-weight: normal;
+    font-size: 1.4rem;
+    letter-spacing: 1px;
 }
 
+thead th {
+    font-size: 1.3rem;
+}
 
+button {
+    /* font-size: 1.4rem; */
+    font-weight: 100;
+}
 
+tbody td {
+    font-family: 'Space Mono';
+}
 
-/* PLAYER.HTML */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+nav a {
+    font-weight: lighter;
+    letter-spacing: 1px;
+}
 
 .child-page-title {
+    font-size: 2rem;
     margin-top: 20px;
     margin-bottom: 60px;
 }
 
-
-/* LOGOS */
-
-.logo-link {
-    /* color: #fff; */
-    /* background-color: #fff; */
+.team-container {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* font-family: 'Tourney'; */
+    font-size: 1rem;
 }
+
+.game-header span,
+.game-footer span {
+    font-size: 1.05rem;
+}
+
+
 
 /* HEADER */
 
 header {
     background-color: #fff;
-    width: 100%;
+    width: 100vw;
+    height: auto;
     top: 0;
     left: 0;
     position: fixed;
@@ -93,31 +121,45 @@ header {
 
 .titlebar {
     display: flex;
-    /* grid-template-columns: 1fr 3fr; */
     align-items: center;
-    margin: 5px 10px;
+    height: 64px;
 }
 
-.logo-header {
-    height: 40px;
-    border-radius: 10px;
-    border: teal solid;
+.logo-link {
+    margin: 0 16px;
 }
 
 .title {
     color: #fff;
     font-family: 'Tourney';
-    font-size: 2.2rem;
-    margin: 0 10px;
+    font-size: 2rem;
     text-align: left;
+    font-weight: 900;
+    font-style: italic;
+    letter-spacing: 5px;
 }
 
 .hamburger {
+    cursor: pointer;
     width: 20px;
     height: 20px;
     color: #fff;
-    margin: 10px 10px 10px auto;
-    
+    margin-right: 16px;
+    margin-left: auto;
+    touch-action: manipulation;
+}
+
+.hamburger img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    filter: invert(1); /* makes the black icon white to match your dark header */
+}
+
+
+.hamburger.active img {
+    content: url('/icons/close.png');
 }
 
 .menu {
@@ -157,8 +199,8 @@ header {
         display: flex;
         justify-content: space-between;
         align-content: center;
-        margin-right: auto;
-        margin-left: 10px;
+        margin-right: 16px;
+        margin-left: auto;
     }
     .titlebar {
         display: flex;
@@ -168,9 +210,9 @@ header {
         flex-direction: row; 
     }
     .menu li {
-        height: 24px;
-        align-items: start;
-        margin-right: 15px;
+        top: 20px;
+        height: 21px;
+        align-items: center;
     }
     .title {
         font-size: 2.4rem;
@@ -178,14 +220,11 @@ header {
     .trademark {
         display: none;
     }
-    .child-page:hover:after {
-        content: '';
-        display: block;
-        width: 100%;
-        height: 2px;
-        background-color: white;
-        margin-top: 4px;
-    }
+     .child-page span:hover {
+        border-bottom: 2px solid #fff;
+        padding-bottom: 2px;
+        transition: padding 0.1s linear;
+     }
 }
 
 .child-page {
@@ -249,18 +288,18 @@ ul, li {
 }
 
 button {
-    width: 140px;
-    padding: 10px 0;
+    padding: 10px 10px;
     cursor: pointer;
     background: #fff;
     color: #000;
     border: 1px solid #ccc;
-    border-radius: 4px;
-    font-weight: 600;
+    border-radius: 8px;
+    transition: all 0.3s ease;
 }
 
 @media (min-width: 768px) {
-    button {
-        width: 125px;
+    button:hover {
+        background-color: rgba(0, 0, 0, 0.75);
+        color: #fff;
     }
 }
