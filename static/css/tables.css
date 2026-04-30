@@ -59,16 +59,9 @@ table img {
 
 /* SCHEDULE TABLES */
 
-/* @media (min-width: 768px) {
-    #section-lohkot {
-            display: flex;
-            flex-direction: row;
-    }
-    .division-table-wrapper {
-        display: flex;
-        flex-direction: column;
-    }
-} */
+.matchup-vs {
+    font-size: 2rem;
+}
      
 
 .schedule-table {
@@ -80,7 +73,6 @@ table img {
 }
 
 .matchup-container {
-    padding: 14px 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -101,7 +93,7 @@ table img {
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 20px 1fr;
-    height: 64px;
+    margin-bottom: 8px;
     justify-content: center;
     align-items: center;
 }
@@ -127,9 +119,14 @@ table img {
 .game-header {
     display: flex;
     flex-direction: column;
-    height: 30px;
+    margin: 16px;
     justify-content: center;
     align-items: center;
+}
+
+.game-footer {
+    margin-top: -2px;
+    margin-bottom: 16px;
 }
 
 .game-result {
@@ -149,15 +146,8 @@ table img {
     /* margin-left: 20px; */
 }
 
-.leaderboard-filter button.active {
-    background-color: #ffffff; /* Tai turnauksesi teemaväri */
-    color: #000000;
-    font-weight: bold;
-}
-
 .leaderboard-filter button {
-    cursor: pointer;
-    transition: all 0.2s ease;
+    width: 128px;
 }
 
 
@@ -208,16 +198,13 @@ table img {
 
 #main-filter-btn {
     width: 140px;
-    padding: 10px 0;
-    cursor: pointer;
-    background: #fff;
-    color: #000;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-weight: 600;
 }
 
-#main-filter-panel { 
+.filter-actions button {
+    width: 90px;
+}
+
+#main-filter-panel {
     display: none; 
     position: absolute; 
     top: 100%; 
@@ -259,7 +246,7 @@ table img {
 }
 
 .filter-group input {
-    accent-color: teal;
+    accent-color: rgba(0, 0, 0, 0.75);;
 }
 
 .sortable-th {
@@ -277,7 +264,7 @@ table img {
 }
 
 .sort-indicator {
-    font-size: 0.8rem;
+    font-size: 1rem;
     margin-left: 4px;
-    color: teal;
+    color: rgba(0, 0, 0, 0.75);;
 }
