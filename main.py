@@ -182,7 +182,7 @@ async def get_players(
                             </div>
                         </td>
                         <td>{player.shirt_number or ""}</td>
-                        <td>{player.team_id or ""}</td>
+                        <td>{player.team_id or "-"}</td>
                         <td>{player.primary_pos or "-"}</td>
                         <td>{player.secondary_pos or "-"}</td>
                         <td>{stick_display}</td>
