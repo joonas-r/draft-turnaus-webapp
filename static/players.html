@@ -7,9 +7,11 @@
         <link rel="stylesheet" href="/css/base.css">
         <link rel="stylesheet" href="/css/tables.css">
         <link rel="icon" href="/logos/logo_default.png" type="favicon.ico">
+        
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Tourney:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Tourney:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
         <script src="https://unpkg.com/htmx.org@1.9.0" defer></script>
         <script src="/js/hamburger.js" defer></script>
         <script src="/js/filters.js" defer></script>
@@ -18,25 +20,27 @@
         <header>
             <div class="titlebar">
                 <a href="/players.html" class="logo-link">
-                    <svg width="60px" height="60px">
+                    <svg width="40px" height="40px">
                         <use href="/logos/logo_white_black.svg#logo_white_black"></use>
                     </svg>
                     <!-- <img src="/logos/logo_default.png" width="100px" height="auto"> -->
                 </a>
                 <div class="title">
                     <a href="/players.html">
-                        <spans>Draft Turnaus</spans>
+                        <spans>DRAFT</spans>
                     </a>
                 </div>
-                <a class="hamburger">☰</a>
+                <a class="hamburger" role="button">
+                    <img id="hamburger-icon" src="/icons/hamburger.png">
+                </a>
             </div>
             <nav class="menu">
                 <ul>
-                    <li class="child-page"><a href="/schedule.html"><span>Otteluohjelma</span></a></li>
-                    <li class="child-page"><a href="/stats.html"><span>Tilastot</span></a></li>
-                    <li class="child-page"><a href="/leaderboard.html"><span>Sarjataulukko</span></a></li>
-                    <li class="child-page"><a href="/players.html"><span>Pelaajat</span></a></li>
-                    <li class="child-page"><a href="/tournamentinfo.html"><span>Turnaus info</span></a></li>
+                    <li class="child-page"><a href="/schedule.html"><span>OTTELUOHJELMA</span></a></li>
+                    <li class="child-page"><a href="/stats.html"><span>TILASTOT</span></a></li>
+                    <li class="child-page"><a href="/leaderboard.html"><span>SARJATAULUKKO</span></a></li>
+                    <li class="child-page"><a href="/players.html"><span>PELAAJAT</span></a></li>
+                    <li class="child-page"><a href="/tournamentinfo.html"><span>INFO</span></a></li>
                 </ul>
                 <div class="trademark"><span>© Kie Mattila & Joonas Ristola</span></div>
             </nav>
@@ -46,67 +50,63 @@
                 <div class="child-page-title">
                     <h1>Pelaajat</h1>
                 </div>
-                <div id="player-table-wrapper">
-                    <div class="filter-controls">
-                        <button id="main-filter-btn">Suodattimet ▼</button>
-                        <div id="main-filter-panel">
-                            <div class="filter-group" id="filter-position1">
-                                <h4>P1</h4>
-                                <label><input type="checkbox" value="H"> H</label>
-                                <label><input type="checkbox" value="K"> K</label>
-                                <label><input type="checkbox" value="P"> P</label>
-                                <label><input type="checkbox" value="MV"> MV</label>
-                            </div>
-                            <div class="filter-group" id="filter-position2">
-                                <h4>P2</h4>
-                                <label><input type="checkbox" value="H"> H</label>
-                                <label><input type="checkbox" value="K"> K</label>
-                                <label><input type="checkbox" value="P"> P</label>
-                                <!-- <label><input type="checkbox" value="MV"> MV</label> -->
-                            </div>
-                            <div class="filter-group" id="filter-stick">
-                                <h4>Maila</h4>
-                                <label><input type="checkbox" value="L"> L</label>
-                                <label><input type="checkbox" value="R"> R</label>
-                            </div>
-                            <!-- <div class="filter-group" id="filter-playstyle">
-                                <h4>Pelaaja profiili</h4>
-                                <label><input type="checkbox" value="Tarkka-ampuja">Tarkka-ampuja</label>
-                                <label><input type="checkbox" value="Pelinrakentaja">Pelinrakentaja</label>
-                                <label><input type="checkbox" value="Taitopelaaja">Taitopelaaja</label>
-                                <label><input type="checkbox" value="Graindaaja">Graindaaja</label>
-                                <label><input type="checkbox" value="Maalineduspelaaja">Maalineduspelaaja</label>
-                                <label><input type="checkbox" value="Kahden suunnan hyökkääjä">Kahden suunnan hyökkääjä</label>
-                                <label><input type="checkbox" value="Puolustava hyökkääjä">Puolustava hyökkääjä</label>
-                                <label><input type="checkbox" value="Hyökkäävä puolustaja">Hyökkäävä puolustaja</label>
-                                <label><input type="checkbox" value="Puolustava puolustaja">Puolustava puolustaja</label>
-                            </div> -->
-                            <div class="filter-group" id="filter-licenced">
-                                <h4>Lisenssi</h4>
-                                <label><input type="checkbox" value="X"> X</label>
-                                <label><input type="checkbox" value="✓"> ✓</label>
-                            </div>
-                            <div class="filter-group" id="filter-recruiter">
-                                <h4>Kutsunut</h4>
-                                <label><input type="checkbox" value="Roni Haarala"> Roni Haarala</label>
-                                <label><input type="checkbox" value="Roope Lahti"> Roope Lahti</label>
-                                <label><input type="checkbox" value="Titus Metsälä"> Titus Metsälä</label>
-                                <label><input type="checkbox" value="Mirko Keränen"> Mirko Keränen</label>
-                                <label><input type="checkbox" value="Mitri Keränen"> Mitri Keränen</label>
-                                <label><input type="checkbox" value="Julius Metsälä"> Julius Metsälä</label>
-                                <label><input type="checkbox" value="Toimitsijat"> Toimitsijat</label>
-                            </div>
-                            
-                            <div class="filter-actions" style="width: 100%; display: flex; justify-content: space-between; margin-top: 15px; border-top: 1px solid #eee; padding-top: 15px;">
-                                <button id="clear-filters-btn" type="button" style="padding: 6px 12px; background: #333; color: white; border: none; border-radius: 4px; cursor: pointer;">Tyhjennä</button>
-                                <button id="apply-filters-btn" type="button" style="padding: 6px 12px; background: teal; color: white; border: none; border-radius: 4px; cursor: pointer;">Käytä</button>
-                            </div>
+                <div class="filter-controls">
+                    <button id="main-filter-btn">Suodattimet ▼</button>
+                    <div id="main-filter-panel">
+                        <div class="filter-group" id="filter-team_id">
+                            <h4>Joukkue</h4>
+                            <label><input type="checkbox" value="1"> HC-Metsurit</label>
+                            <label><input type="checkbox" value="2"> Härkäviisikko</label>
+                            <label><input type="checkbox" value="3"> Jääkarhut</label>
+                            <label><input type="checkbox" value="4"> Kiekkokingit</label>
+                            <label><input type="checkbox" value="4"> Kiekko-orit</label>
+                            <label><input type="checkbox" value="6"> Teräskotkat</label>
+                        </div>
+                        <div class="filter-group" id="filter-position1">
+                            <h4>P1</h4>
+                            <label><input type="checkbox" value="H"> H</label>
+                            <label><input type="checkbox" value="K"> K</label>
+                            <label><input type="checkbox" value="P"> P</label>
+                            <label><input type="checkbox" value="MV"> MV</label>
+                        </div>
+                        <div class="filter-group" id="filter-position2">
+                            <h4>P2</h4>
+                            <label><input type="checkbox" value="H"> H</label>
+                            <label><input type="checkbox" value="K"> K</label>
+                            <label><input type="checkbox" value="P"> P</label>
+                        </div>
+                        <div class="filter-group" id="filter-stick">
+                            <h4>Maila</h4>
+                            <label><input type="checkbox" value="L"> L</label>
+                            <label><input type="checkbox" value="R"> R</label>
+                        </div>
+                        <div class="filter-group" id="filter-licenced">
+                            <h4>Lisenssi</h4>
+                            <label><input type="checkbox" value="X"> X</label>
+                            <label><input type="checkbox" value="✓"> ✓</label>
+                        </div>
+                        <div class="filter-group" id="filter-recruiter">
+                            <h4>Kutsunut</h4>
+                            <label><input type="checkbox" value="Roni Haarala"> Roni Haarala</label>
+                            <label><input type="checkbox" value="Roope Lahti"> Roope Lahti</label>
+                            <label><input type="checkbox" value="Titus Metsälä"> Titus Metsälä</label>
+                            <label><input type="checkbox" value="Mirko Keränen"> Mirko Keränen</label>
+                            <label><input type="checkbox" value="Mitri Keränen"> Mitri Keränen</label>
+                            <label><input type="checkbox" value="Julius Metsälä"> Julius Metsälä</label>
+                            <label><input type="checkbox" value="Toimitsijat"> Toimitsijat</label>
                         </div>
                         
+                        <div class="filter-actions" style="width: 100%; display: flex; justify-content: space-between; margin-top: 15px; border-top: 1px solid #eee; padding-top: 15px;">
+                            <button id="clear-filters-btn" type="button">Tyhjennä</button>
+                            <button id="apply-filters-btn" type="button">Käytä</button>
+                        </div>
                     </div>
-
+                    
+                </div>
+                <div id="player-table-wrapper">
                     <form id="filter-form" hx-get="/players" hx-trigger="filterChanged from:body" hx-target="#player-tbody">
                         <input type="hidden" name="shirt_number" value="">
+                        <input type="hidden" name="team_id" value="">
                         <input type="hidden" name="position1" value="">
                         <input type="hidden" name="position2" value="">
                         <input type="hidden" name="stick" value="">
@@ -119,21 +119,23 @@
                     
                     <table class="player-table">
                         <colgroup>
+                            <col style="width: 245px">
+                            <col style="width: 64px">
+                            <col style="width: 64px">
+                            <col style="width: 64px">
+                            <col style="width: 64px">
+                            <col style="width: 74px">
+                            <col style="width: 64px">
+                            <col style="width: 108px">
                             <col style="width: 220px">
-                            <col style="width: 64px">
-                            <col style="width: 64px">
-                            <col style="width: 64px">
-                            <col style="width: 64px">
-                            <col style="width: 64px">
-                            <col style="width: 100px">
-                            <col style="width: 190px">
-                            <col style="width: 84px">
-                            <col style="width: 90px">
+                            <col style="width: 88px">
+                            <col style="width: 110px">
                         </colgroup>
                         <thead>
                             <tr class="thead-tr">
                                 <th class="players-th sortable-th left-column" id="sort-name">Pelaaja <span class="sort-indicator">⇅</span></th>
                                 <th class="players-th sortable-th" id="sort-shirt_number"># <span class="sort-indicator">⇅</span></th>
+                                <th class="players-th sortable-th" id="sort-team_id">J <span class="sort-indicator">⇅</span></th>
                                 <th class="players-th sortable-th" id="sort-primary_pos">P1 <span class="sort-indicator">⇅</span></th>
                                 <th class="players-th sortable-th" id="sort-secondary_pos">P2 <span class="sort-indicator">⇅</span></th>
                                 <th class="players-th sortable-th" id="sort-stick">Maila <span class="sort-indicator">⇅</span></th>
