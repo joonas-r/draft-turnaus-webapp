@@ -3,9 +3,8 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>DRAFT | Otteluohjelma</title>
+        <title>DRAFT | Tietosuoja</title>
         <link rel="stylesheet" href="/css/base.css">
-        <link rel="stylesheet" href="/css/tables.css">
         <link id="dynamic-favicon" rel="icon" href="/logos/favicon_white.svg" type="image/svg+xml">
         <script>
             const favicon = document.getElementById('dynamic-favicon');
@@ -36,7 +35,6 @@
 
         <script src="https://unpkg.com/htmx.org@1.9.0" defer></script>
         <script src="/js/hamburger.js" defer></script>
-        <script src="/js/schedule.js" defer></script>
     </head>
     <body>
         <header>
@@ -68,66 +66,33 @@
         <main>
             <div class="content">
                 <div class="child-page-title">
-                    <h1>Otteluohjelma</h1>
+                    <h1>Tietosuojaseloste</h1>
                 </div>
-                <div class="leaderboard-filter-wrapper">
-                    <div class="leaderboard-filter">
-                        <button class="leaderboard-division active" onclick="showSchedule('lohkot')">Lohkot</button>
-                        <button class="leaderboard-league" onclick="showSchedule('jatko')">Jatko-ottelut</button>
-                    </div>
-                </div>
-                <div id="section-lohkot">
-                    <div class="division-table-wrapper">
-                        <div class="division-title">
-                            <h2>Lohko A</h2>
-                        </div>
-                    
-                        <div class="table-container">
-                            <table class="division-a-table">
-                                <thead class="schedule-header">
-                                    <tr>
-                                        <th>Ottelu</th>
-                                    </tr>
-                                </thead>
-                                <tbody hx-get="/schedule/division-a" hx-trigger="load" hx-swap="innerHTML">
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="division-table-wrapper">
-                        <div class="division-title">
-                            <h2>Lohko B</h2>
-                        </div>
-                        <div class="table-container">
-                            <table class="schedule-table">
-                                <thead class="schedule-header">
-                                    <tr>
-                                        <th>Ottelu</th>
-                                    </tr>
-                                </thead>
-                                <tbody hx-get="/schedule/division-b" hx-trigger="load" hx-swap="innerHTML">
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="jatko-tables-wrapper">
-                    <div id="section-jatko" style="display: none;">
-                        <div class="division-title">
-                            <span>Jatko-ottelut</span>
-                        </div>
-                        <div class="table-container">
-                            <table class="division-playoffs-table">
-                                <thead class="schedule-header">
-                                    <tr>
-                                        <th>Ottelu</th>
-                                    </tr>
-                                </thead>
-                                <tbody hx-get="/schedule/playoffs" hx-trigger="load" hx-swap="innerHTML">
-                                </tbody>
-                            </table>
-                        </div>
-                    </div> 
+                <div class="gdpr">
+                    <h3>Rekisterinpitäjä ja yhteystiedot</h3>
+                    <ul class="list">
+                        <li>
+                            <span>Kie Mattila</span>
+                        </li>
+                        <li>
+                            <span>+358 044 342 3484</span>
+                        </li>
+                        <li>
+                            <span>help@draft-turnaus.fi</span>
+                        </li>
+                    </ul>
+                    <h3>Käsiteltävät tiedot</h3>
+                    <p>
+                        Turnausta varten kerätään osallistujien nimi, ikä, sähköpostiosoite sekä profiilikuva.
+                    </p>
+                    <h3>Käyttötarkoitus</h3>
+                    <p>
+                        Tietoja käytetään joukkueiden muodostamiseen ja turnaustilastojen ylläpitoon. Nimi, ikä ja profiilikuva julkaistaan verkkosivuilla. Sähköpostiosoitetta käytetään vain tiedottamiseen.
+                    </p>
+                    <h3>Tietojen säilytys ja poistaminen</h3>
+                    <p>
+                        Tietoja säilytetään 30 vuorokautta turnauksen päättymisen jälkeen, minkä jälkeen kaikki henkilötiedot poistetaan järjestelmästä. Tietoja ei luovuteta kolmansille osapuolille eikä käytetä markkinointiin.
+                    </p>
                 </div>
             </div>
         </main>

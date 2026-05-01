@@ -3,173 +3,220 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Draft Turnaus</title>
+        <title>DRAFT | Tilastot</title>
         <link rel="stylesheet" href="/css/base.css">
         <link rel="stylesheet" href="/css/tables.css">
-        <link rel="icon" href="/photos/logo.jpg" type="favicon.ico">
+        <link id="dynamic-favicon" rel="icon" href="/logos/favicon_white.svg" type="image/svg+xml">
+        <script>
+            const favicon = document.getElementById('dynamic-favicon');
+
+            function updateFavicon() {
+                // Check if the browser/system is in dark mode
+                const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+                if (isDarkMode) {
+                    // Use the white version for dark backgrounds
+                    favicon.href = '/logos/favicon_white.svg';
+                } else {
+                    // Use the standard version for light backgrounds
+                    favicon.href = '/logos/favicon.svg';
+                }
+            }
+
+            // Run immediately on page load
+            updateFavicon();
+
+            // Watch for changes (e.g., if the user toggles their system theme)
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateFavicon);
+        </script>
+        
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Tourney:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Bebas+Neue&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Tourney:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+        <script src="https://unpkg.com/htmx.org@1.9.0" defer></script>
         <script src="/js/hamburger.js" defer></script>
+        <script src="/js/stats.js" defer></script>
     </head>
     <body>
         <header>
             <div class="titlebar">
-                <a href="/index.html">
-                    <img class="logo-header" src="/photos/logo.jpg">
+                <a href="/index.html" class="logo-link">
+                    <svg width="50px" height="50px">
+                        <use href="/logos/logo_white_black.svg#logo_white_black"></use>
+                    </svg>
+                    <!-- <img src="/logos/logo_default.png" width="100px" height="auto"> -->
                 </a>
                 <div class="title">
                     <a href="/index.html">
-                        <spans>Draft Turnaus</spans>
+                        <spans>DRAFT</spans>
                     </a>
                 </div>
-                <a class="hamburger">☰</a>
+                <a class="hamburger" role="button">
+                    <img id="hamburger-icon" src="/icons/hamburger.png">
+                </a>
             </div>
             <nav class="menu">
                 <ul>
-                    <li class="child-page">
-                        <a href="/schedule.html">
-                            <span>Otteluohjelma</span>
-                        </a>
-                    </li>
-                    <li class="child-page">
-                        <a href="/stats.html">
-                            <span>Tilastot</span>
-                        </a>
-                    </li>
-                    <li class="child-page">
-                        <a href="/leaderboard.html">
-                            <span>Sarjataulukko</span>
-                        </a>
-                    </li>
-                    <li class="child-page">
-                        <a href="/players.html">
-                            <span>Pelaajat</span>
-                        </a>
-                    </li>
-                    <li class="child-page">
-                        <a href="/tournamentinfo.html">
-                            <span>Turnaus info</span>
-                        </a>
-                    </li>
+                    <li class="child-page"><a href="/schedule.html"><span>OTTELUOHJELMA</span></a></li>
+                    <li class="child-page"><a href="/stats.html"><span>TILASTOT</span></a></li>
+                    <li class="child-page"><a href="/players.html"><span>PELAAJAT</span></a></li>
+                    <li class="child-page"><a href="/tournamentinfo.html"><span>INFO</span></a></li>
                 </ul>
-                <div class="trademark">
-                    <span>Made by brothagenie TM</span>
-                </div>
             </nav>
         </header>
         <main>
             <div class="content">
-                <div class="table-container">
-                    <table class="player-table">
-                        <colgroup>
-                            <col class="photos-column" style="width: 220px">
-                            <col style="width: 60px">
-                            <col style="width: 60px">
-                            <col style="width: 60px">
-                            <col style="width: 80px">
-                            <col style="width: 100px">
-                            <col style="width: 110px">
-                            <col style="width: 60px">
-                        </colgroup>
-                        <thead>
-                            <tr class="thead-tr">
-                                <th class="players-th">Pelaaja</th>
-                                <th>#</th>
-                                <th>P 1</th>
-                                <th>P 2</th>
-                                <th>Maila</th>
-                                <th>Kutsunut</th>
-                                <th>Pelivuodet</th>
-                                <th>Ikä</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="tbody-tr">
-                                <td>
-                                    <div class="player-container">
-                                        <div class="player-img-container">
-                                            <img src="/photos/profile.png">
-                                        </div>
-                                        <span>Jan-Emil Sillanpaa</span>
-                                    </div>
-                                </td>
-                                <td>87</td>
-                                <td>KH</td>
-                                <td>RW</td>
-                                <td>L</td>
-                                <td>Matias Santapakka</td>
-                                <td>3</td>
-                                <td>24</td>
-                            </tr>
-                            <tr class="tbody-tr">
-                                <td>
-                                    <div class="player-container">
-                                        <img src="/photos/profile.png">
-                                        <span>Sydney Crosby</span>
-                                    </div>
-                                </td>
-                                <td>87</td>
-                                <td>KH</td>
-                                <td>RW</td>
-                                <td>L</td>
-                                <td>Roope Lahti</td>
-                                <td>3</td>
-                                <td>24</td>
-                            </tr>
-                            <tr class="tbody-tr">
-                                <td>
-                                    <div class="player-container">
-                                        <img src="/photos/profile.png">
-                                        <span>Sydney Crosby</span>
-                                    </div>
-                                </td>
-                                <td>87</td>
-                                <td>KH</td>
-                                <td>RW</td>
-                                <td>L</td>
-                                <td>Roope Lahti</td>
-                                <td>3</td>
-                                <td>24</td>
-                            </tr>
-                            <tr class="tbody-tr">
-                                <td>
-                                    <div class="player-container">
-                                        <img src="/photos/profile.png">
-                                        <span>Sydney Crosby</span>
-                                    </div>
-                                </td>
-                                <td>87</td>
-                                <td>KH</td>
-                                <td>RW</td>
-                                <td>L</td>
-                                <td>Roope Lahti</td>
-                                <td>3</td>
-                                <td>24</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="child-page-title">
+                    <h1>Tilastot</h1>
+                </div>
+
+                <div class="leaderboard-filter-wrapper">
+                    <div class="leaderboard-filter">
+                        <button class="leaderboard-teams active" onclick="showSchedule('leaderboard')">Sarjataulukko</button>
+                        <button class="leaderboard-players" onclick="showSchedule('players')">Pelaajat</button>
+                    </div>
+                </div>
+
+                <!-- LEADERBOARD SECTION -->
+                <div id="section-leaderboard">
+                    <div id="team-table-wrapper">
+                        <form id="team-sort-form" hx-get="/leaderboard" hx-trigger="teamFilterChanged from:body" hx-target="#leaderboard-tbody">
+                            <input type="hidden" name="sort_by" id="team-sort-by" value="points">
+                            <input type="hidden" name="sort_order" id="team-sort-order" value="desc">
+                        </form>
+                        
+                        <table class="leaderboard-table">
+                            <colgroup>
+                                <col style="width: 64px">
+                                <col style="width: 180px">
+                                <col style="width: 64px">
+                                <col style="width: 64px">
+                                <col style="width: 64px">
+                                <col style="width: 64px">
+                                <col style="width: 64px">
+                                <col style="width: 64px">
+                                <col style="width: 64px">
+                                <col style="width: 64px">
+                            </colgroup>
+                            <thead>
+                                <tr class="thead-tr">
+                                    <th></th>
+                                    <!-- Format: sort-[type]-[field] -->
+                                    <th id="sort-team-team_name" class="sortable-th" onclick="handleSort('team_name', 'team')">
+                                        <span class="sort-indicator"></span>Joukkue
+                                    </th>
+                                    <th id="sort-team-group" class="sortable-th" onclick="handleSort('group', 'team')">
+                                        <span class="sort-indicator"></span>Lohko
+                                    </th>
+                                    <th id="sort-team-games" class="sortable-th" onclick="handleSort('games', 'team')">
+                                        <span class="sort-indicator"></span>O
+                                    </th>
+                                    <th id="sort-team-points" class="sortable-th active-sort-cell" onclick="handleSort('points', 'team')">
+                                        <span class="sort-indicator"></span>P
+                                    </th>
+                                    <th id="sort-team-wins" class="sortable-th" onclick="handleSort('wins', 'team')">
+                                        <span class="sort-indicator"></span>V
+                                    </th>
+                                    <th id="sort-team-draws" class="sortable-th" onclick="handleSort('draws', 'team')">
+                                        <span class="sort-indicator"></span>T
+                                    </th>
+                                    <th id="sort-team-losses" class="sortable-th" onclick="handleSort('losses', 'team')">
+                                        <span class="sort-indicator"></span>H
+                                    </th>
+                                    
+                                    <th id="sort-team-goals_for" class="sortable-th" onclick="handleSort('goals_for', 'team')">
+                                        <span class="sort-indicator"></span>TM
+                                    </th>
+                                    <th id="sort-team-goals_against" class="sortable-th" onclick="handleSort('goals_against', 'team')">
+                                        <span class="sort-indicator"></span>PM
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="leaderboard-tbody" hx-get="/leaderboard" hx-trigger="load, teamFilterChanged from:body" hx-include="#team-sort-form">
+                                <!-- Rows injected by main.py[cite: 7] -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- PLAYERS SECTION -->
+                <div id="section-players" style="display: none;">
+                    <div id="player-table-wrapper">
+                        <form id="player-sort-form" hx-get="/playerStats" hx-trigger="playersFilterChanged from:body" hx-target="#player-tbody">
+                            <input type="hidden" name="sort_by" id="player-sort-by" value="points">
+                            <input type="hidden" name="sort_order" id="player-sort-order" value="desc">
+                        </form>
+                        
+                        <table class="player-table">
+                            <colgroup>
+                                    <col style="width: 64px">
+                                    <col style="width: 245px">
+                                    <col style="width: 64px">
+                                    <col style="width: 64px">
+                                    <col style="width: 64px">
+                                    <col style="width: 64px">
+                                    <col style="width: 64px">
+                                    <col style="width: 64px">
+                                    <col style="width: 64px">
+                                    <col style="width: 64px">
+                                </colgroup>
+                            <thead>
+                                <tr class="thead-tr">
+                                    <th></th>
+                                    <th id="sort-player-name" class="sortable-th" onclick="handleSort('name', 'player')">
+                                        <span class="sort-indicator"></span>Pelaaja
+                                    </th>
+                                    <th id="sort-player-team" class="sortable-th" onclick="handleSort('team', 'player')">
+                                        <span class="sort-indicator"></span>Joukkue
+                                    </th>
+                                    <th id="sort-player-played_games" class="sortable-th" onclick="handleSort('played_games', 'player')">
+                                        <span class="sort-indicator"></span>O
+                                    </th>
+                                    <th id="sort-player-points" class="sortable-th active-sort-cell" onclick="handleSort('points', 'player')">
+                                        <span class="sort-indicator"></span>P
+                                    </th>
+                                    <th id="sort-player-goals" class="sortable-th" onclick="handleSort('goals', 'player')">
+                                        <span class="sort-indicator"></span>M
+                                    </th>
+                                    <th id="sort-player-assists" class="sortable-th" onclick="handleSort('assists', 'player')">
+                                        <span class="sort-indicator"></span>S
+                                    </th>
+                                    <th id="sort-player-penalty_min" class="sortable-th" onclick="handleSort('penalty_min', 'player')">
+                                        <span class="sort-indicator"></span>RM
+                                    </th>
+                                    <th id="sort-player-stick" class="sortable-th" onclick="handleSort('stick', 'player')">
+                                        <span class="sort-indicator"></span>Kätisyys
+                                    </th>
+                                    <th id="sort-player-primary_pos" class="sortable-th" onclick="handleSort('primary_pos', 'player')">
+                                        <span class="sort-indicator"></span>PP
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="player-tbody" hx-get="/playerStats" hx-trigger="load, playersFilterChanged from:body" hx-include="#player-sort-form">
+                                <!-- Rows injected by main.py[cite: 7] -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </main>
         <footer>
             <div class="footer">
-                <div class="footerlinks-container">
-                    <div class="footerlinks">
-                        <span>Meistä</span>
-                        <span>|</span>
-                        <span>Säännöt</span>
-                        <span>|</span>
-                        <span>Muuta</span>
-                        <span>|</span>
-                        <span>Tietosuoja</span>
-                    </div>
-                </div>
-                <div class="footertitle">
-                    <span>© Draft turnaus<sup>&trade;</sup></span>
-                    <span>Turku 2026</span>
+                <!-- Primary Navigation Links -->
+                <nav class="footer-links">
+                    <a href="/credits.html">Tekijät</a>
+                    <a href="/rules.html">Säännöt</a>
+                    <a href="/gdpr.html">Tietosuoja</a>
+                </nav>
+                
+                <!-- Branding and Copyright -->
+                <div class="footer-title">
+                    <span class="brand-name">DRAFT-TURNAUS <sup>©</sup></span>
+                    <span class="location-tag">TKU 2026</span>
                 </div>
             </div>
         </footer>
+        <div class="menu-overlay" id="menu-overlay"></div>
     </body>
 </html>

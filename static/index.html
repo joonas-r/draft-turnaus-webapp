@@ -3,118 +3,138 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Draft Turnaus</title>
+        <title>DRAFT</title>
         <link rel="stylesheet" href="/css/base.css">
         <link rel="stylesheet" href="/css/tables.css">
         <link rel="stylesheet" href="/css/index.css">
-        <link rel="icon" href="/photos/logo.jpg" type="favicon.ico">
+        <!-- Reusing your favicon logic -->
+        <link id="dynamic-favicon" rel="icon" href="/logos/favicon_white.svg" type="image/svg+xml">
+        <script>
+            const favicon = document.getElementById('dynamic-favicon');
+
+            function updateFavicon() {
+                // Check if the browser/system is in dark mode
+                const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+                if (isDarkMode) {
+                    // Use the white version for dark backgrounds
+                    favicon.href = '/logos/favicon_white.svg';
+                } else {
+                    // Use the standard version for light backgrounds
+                    favicon.href = '/logos/favicon.svg';
+                }
+            }
+
+            // Run immediately on page load
+            updateFavicon();
+
+            // Watch for changes (e.g., if the user toggles their system theme)
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateFavicon);
+        </script>
+        
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Tourney:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Bebas+Neue&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Tourney:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+        <script src="https://unpkg.com/htmx.org@1.9.0" defer></script>
         <script src="/js/hamburger.js" defer></script>
     </head>
     <body>
         <header>
             <div class="titlebar">
-                <a href="/index.html">
-                    <img class="logo-header" src="/photos/logo.jpg">
+                <a href="/index.html" class="logo-link">
+                    <svg width="50px" height="50px">
+                        <use href="/logos/logo_white_black.svg#logo_white_black"></use>
+                    </svg>
+                    <!-- <img src="/logos/logo_default.png" width="100px" height="auto"> -->
                 </a>
                 <div class="title">
                     <a href="/index.html">
-                        <spans>Draft Turnaus</spans>
+                        <spans>DRAFT</spans>
                     </a>
                 </div>
-                <a class="hamburger">☰</a>
+                <a class="hamburger" role="button">
+                    <img id="hamburger-icon" src="/icons/hamburger.png">
+                </a>
             </div>
             <nav class="menu">
                 <ul>
-                    <li class="child-page">
-                        <a href="/schedule.html">
-                            <span>Otteluohjelma</span>
-                        </a>
-                    </li>
-                    <li class="child-page">
-                        <a href="/stats.html">
-                            <span>Tilastot</span>
-                        </a>
-                    </li>
-                    <li class="child-page">
-                        <a href="/leaderboard.html">
-                            <span>Sarjataulukko</span>
-                        </a>
-                    </li>
-                    <li class="child-page">
-                        <a href="/players.html">
-                            <span>Pelaajat</span>
-                        </a>
-                    </li>
-                    <li class="child-page">
-                        <a href="/tournamentinfo.html">
-                            <span>Turnaus info</span>
-                        </a>
-                    </li>
+                    <li class="child-page"><a href="/schedule.html"><span>OTTELUOHJELMA</span></a></li>
+                    <li class="child-page"><a href="/stats.html"><span>TILASTOT</span></a></li>
+                    <li class="child-page"><a href="/players.html"><span>PELAAJAT</span></a></li>
+                    <li class="child-page"><a href="/tournamentinfo.html"><span>INFO</span></a></li>
                 </ul>
-                <div class="trademark">
-                    <span>Made by brothagenie TM</span>
-                </div>
             </nav>
         </header>
+
         <main>
             <div class="content">
-                <div class="infocards">
-                    <div class="infocards-left">
-                        <h2 class="infocards-headline">Mikä on Draft turnaus?</h2>
-                        <img class="logo-frontpage" src="/photos/logo.jpg">
+                <section class="hero-section">
+                    <svg class="hero-logo"><use href="/logos/logo_white_black.svg#logo_white_black"></use></svg>
+                    <h1 class="hero-title">DRAFT TURNAUS</h1>
+                    <p>TKU | 2026</p>
+                    <div class="cta-buttons">
+                        <a href="/schedule.html" class="cta-btn">OTTELUOHJELMA</a>
+                        <a href="/stats.html" class="cta-btn">TILASTOT</a>
                     </div>
-                    <div class="infocards-right">
-                        <ul class="infolist">
-                            <li class="infolist-item">
-                                <span>Turnaukseen on valittu kapteenit, jotka pyytävät
-                                    turnaukseen x pelaajaa. Tämän lisäksi toimitsijat pyytävät 30
-                                    pelaajaa.</span>
-                            </li>
-                            <li class="infolist-item">
-                                <span>Kaksi viikkoa ennen turnausta pidetää
-                                    draft tilaisuus, jossa joukkuiden kapteenit saavat
-                                    valita pelaajia yksi kerrallaan vuorotellen.
-                                </span>
-                            </li>
-                            <li class="infolist-item">
-                                <span>Turnauksen luonteen vuoksi se tullaan järjestämään
-                                    joka vuosi eri kokoonpanoin.
-                                </span>
-                            </li>
-                        </ul>
+                </section>
+
+                <div class="dashboard-grid">
+                    <!-- Live Schedule Snippet -->
+                    <div id="leaderboard-card" class="dash-card">
+                        <h3>Seuraavat Ottelut</h3>
+                        <table class="schedule-mini-table">
+                            <tbody hx-get="/schedule/upcoming" hx-trigger="load">
+                                <!-- Content loaded via /schedule/upcoming endpoint -->
+                            </tbody>
+                        </table>
+                        <a href="/schedule.html" class="view-all-link">Koko otteluohjelma →</a>
                     </div>
-                </div>
-                <div class="turnauskaavio">
-                    <img class="turnauskaavio-kuva" src="/photos/nhl.png">
-                    <h3>Turnaus kaavio</h3>
-                    <span>Ensin pelataan alkulohkot, jonka jälkeen edetään
-                        pudotuspeleihin. Pronssiottelua ei pelata ja finaali on
-                        yhdestä poikki.
-                    </span>
+
+                    <!-- Division A Top Teams[cite: 3] -->
+                    <div class="dash-card">
+                        <h3>Lohko Kärki</h3>
+                        <table class="player-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Joukkue</th>
+                                    <th></th> <!-- Hidden Group -->
+                                    <th>O</th> <!-- Games Played -->
+                                    <th>P</th> <!-- Points -->
+                                    <th>V</th> <!-- Wins -->
+                                    <th></th> <!-- Hidden Draws -->
+                                    <th>H</th> <!-- Losses -->
+                                    <th></th> <!-- Hidden GF -->
+                                    <th></th> <!-- Hidden GA -->
+                                </tr>
+                            </thead>
+                            <tbody hx-get="/leaderboard" hx-trigger="load">
+                                <!-- Rows from main_2.py -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    
                 </div>
             </div>
         </main>
         <footer>
             <div class="footer">
-                <div class="footerlinks-container">
-                    <div class="footerlinks">
-                        <span>Meistä</span>
-                        <span>|</span>
-                        <span>Säännöt</span>
-                        <span>|</span>
-                        <span>Muuta</span>
-                        <span>|</span>
-                        <span>Tietosuoja</span>
-                    </div>
-                </div>
-                <div class="footertitle">
-                    <span>© Draft turnaus<sup>&trade;</sup></span>
-                    <span>Turku 2026</span>
+                <!-- Primary Navigation Links -->
+                <nav class="footer-links">
+                    <a href="/credits.html">Tekijät</a>
+                    <a href="/rules.html">Säännöt</a>
+                    <a href="/gdpr.html">Tietosuoja</a>
+                </nav>
+                
+                <!-- Branding and Copyright -->
+                <div class="footer-title">
+                    <span class="brand-name">DRAFT-TURNAUS <sup>©</sup></span>
+                    <span class="location-tag">TKU 2026</span>
                 </div>
             </div>
         </footer>
+        <div class="menu-overlay" id="menu-overlay"></div>
     </body>
 </html>
