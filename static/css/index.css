@@ -9,15 +9,30 @@
 .hero-logo { width: 120px; height: 120px; margin-bottom: 20px; }
 .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: 4rem; margin: 0; }
 .cta-buttons { display: flex; justify-content: center; gap: 15px; margin-top: 25px; }
+
+
 .cta-btn { 
-    width: 200px;
-    padding: 12px 24px; 
+    max-width: 200px;
+    padding: 8px 16px; 
     border: 2px solid #fff; 
     text-decoration: none; 
     color: #fff; 
     font-weight: bold;
     transition: 0.3s;
 }
+
+@media (min-width: 400px) {
+    .cta-btn { 
+        max-width: 200px;
+        padding: 12px 24px; 
+        border: 2px solid #fff; 
+        text-decoration: none; 
+        color: #fff; 
+        font-weight: bold;
+        transition: 0.3s;
+    }    
+}
+
 .cta-btn:hover { background: #fff; color: #000; }
 
 /* --- DASHBOARD GRID --- */
