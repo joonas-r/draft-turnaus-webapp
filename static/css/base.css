@@ -23,6 +23,7 @@ html {
     font-size: 14px;
     font-family: var(--font-main);
     background-color: #000;
+    max-width: 1001vw;
 }
 
 body {
@@ -43,7 +44,7 @@ main {
 }
 
 .content {
-    width: 100%;
+    width: 100vw;
     max-width: 1248px;
     /* Korjattu: calc() tarvitaan laskemiseen */
     min-height: calc(100vh - var(--header-height) - 175px); 
@@ -84,7 +85,7 @@ tbody td {
 /* --- HEADER & NAVIGAATIO --- */
 header {
     background-color: #000;
-    width: 100%;
+    width: 100vw;
     height: 64px;
     top: 0;
     left: 0;
@@ -231,7 +232,7 @@ header {
 
 /* --- FOOTER --- */
 footer {
-    width: 100vw;
+    max-width: 100vw;
     background-color: #000;
     display: flex;
     flex-direction: column;
@@ -325,8 +326,23 @@ button:hover {
 
 #main-filter-panel {
     border-radius: 10px;
+    text-align: center;
 }
 
 .logo-link {
     margin-right: 16px;
+}
+
+@media (max-width: 600px) {
+    #main-filter-btn {
+        text-align: center;
+        font-size: 1.2rem;
+        width: 140px !important;
+        padding: 10px;
+    }
+    .leaderboard-filter button  {
+        font-size: 1.2rem;
+        width: 120px !important;
+        padding: 10px;
+    }
 }
