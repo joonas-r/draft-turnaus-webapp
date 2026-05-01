@@ -209,7 +209,7 @@ async def get_player_stats(
         sort_map = {
             "name": Player.name,
             "team": Team.team_name,
-            "played_games": PlayerStats.played_games,
+            # "played_games": PlayerStats.played_games,
             "points" : points_expr,
             "goals": PlayerStats.goals,
             "assists": PlayerStats.assists,
@@ -260,7 +260,9 @@ def generate_stats_rows(stats_list, sort_by="points"):
                         </svg>
                     </div>
                 </td>
-                <td{get_cls('played_games')}>{stats_entry.played_games}</td>
+                
+                <!-- <td{get_cls('played_games')}>{stats_entry.played_games}</td> -->
+
                 <td{get_cls('points')}>{stats_entry.goals + stats_entry.assists}</td>
                 <td{get_cls('goals')}>{stats_entry.goals}</td>
                 <td{get_cls('assists')}>{stats_entry.assists}</td>
