@@ -1,0 +1,105 @@
+body.credits-page {
+            background-color: #0f0f0f;
+            color: #ffffff;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+            margin: 0;
+        }
+
+
+.credits-section {
+    margin-bottom: 40px;
+}
+
+.section-label {
+    font-size: 0.8rem;
+    color: #0213ff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+    display: block;
+    border-bottom: 1px solid #333;
+    padding-bottom: 10px;
+}
+
+.card-main {
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    border-left: 6px solid #025bff;
+    margin-bottom: 30px;
+}
+
+.credits-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.card-sub {
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    border-left: 4px solid #025bff;
+}
+
+.role {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.name {
+    font-size: 1.6rem;
+    font-weight: 800;
+    margin: 0 0 10px 0;
+}
+
+.desc {
+    font-size: 0.95rem;
+    color: #000;
+    line-height: 1.5;
+}
+
+.attribution-footer {
+    background-color: #161616;
+    margin-top: 60px;
+    padding-top: 30px;
+    border: 3px solid #555;
+    text-align: center;
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.attribution-footer a {
+    color: #888;
+    text-decoration: none;
+    border-bottom: 1px solid #444;
+}
+
+.attribution-footer p {
+    margin: 0;
+}
+
+.back-nav {
+    margin-bottom: 30px;
+}
+
+.back-link {
+    color: #888;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+}
+
+.back-link:hover {
+    color: #fff;
+}
+
+@media (max-width: 700px) {
+    .credits-grid { grid-template-columns: 1fr; }
+    .credits-container { padding: 30px; }
+}

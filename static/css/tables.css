@@ -6,14 +6,16 @@ table {
     font-size: 1rem;
 }
 
-#player-table-wrapper {
+#player-table-wrapper,
+#team-table-wrapper {
     overflow-x: auto;
     white-space: nowrap;
     min-height: 50vh;
+    margin-top: 24px;
 }
 
 th, td {
-    padding: 0px 5px;
+    /* padding: 0px 5px; */
     text-align: center;
     text-wrap: wrap;
 }
@@ -25,6 +27,7 @@ thead {
 thead tr {
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
+    background-color: #fff;
 }
 
 tbody tr {
@@ -32,13 +35,7 @@ tbody tr {
 }
 
 tbody tr:nth-child(odd) {
-    background-color: #f7f7f76e; 
-}
-
-@media (min-width: 768px) {
-    tbody tr:hover {
-        background-color: #f7f7f76e;
-    }
+    background-color: #fafafa; 
 }
 
 
@@ -56,6 +53,8 @@ table img {
 .left-column {
     padding-left: 10px;
 }
+
+
 
 /* SCHEDULE TABLES */
 
@@ -139,9 +138,23 @@ table img {
     align-items: center;
 }
 
+@media (max-width: 600px) {
+    .matchup-container svg {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@media (max-width: 400px) {
+    .matchup-container svg {
+        width: 35px;
+        height: 35px;
+    }
+}
+
 .division-title {
     font-weight: bold;
-    margin-top: 50px;
+    margin-top: 24px;
     margin-bottom: 10px;
     /* margin-left: 20px; */
 }
@@ -158,13 +171,12 @@ table img {
 .team-container {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
 }
 
-.teams-th {
-    text-align: left;
+.team-column {
+    text-align: start;
 }
-
 
 
 /* PLAYER AND STATS TABLES */
@@ -172,6 +184,7 @@ table img {
 .player-container {
     display: flex;
     align-items: center;
+    justify-content: start;
 }
 
 .player-img-container {
@@ -186,6 +199,11 @@ table img {
 
 #sort-name {
     text-align: left;
+    padding-left: 10px;
+}
+
+#section-leaderboard .team-img-container {
+    margin-left: 0;
 }
 
 
@@ -193,7 +211,6 @@ table img {
 /* DROPDOWN MENU FOR PLAYERS.HTML */
 .filter-controls {
     position: relative;
-    margin-bottom: 20px;
 }
 
 #main-filter-btn {
@@ -251,20 +268,71 @@ table img {
 
 .sortable-th {
     cursor: pointer;
-    user-select: none;
+    padding: 8px 4px;
+    text-align: center;
+    vertical-align: middle;
 }
 
 .sortable-th:hover {
-    background-color: rgba(0,0,0,0.05);
+    background-color: #f1f1f1;
 }
-
-.sortable-th {
-    cursor: pointer;
-    user-select: none; /* prevents text highlighting on repeated clicks */
-}
+    
 
 .sort-indicator {
-    font-size: 1rem;
-    margin-left: 4px;
-    color: rgba(0, 0, 0, 0.75);;
+    display: block;
+    transition: transform 0.3s ease;
+    height: 0.8rem;
+    font-size: 0.6rem;
+    line-height: 1;
+}
+
+.sort-indicator.desc {
+    transform: rotate(180deg);
+}
+
+#sort-name .sort-indicator {
+    margin-left: 22px;
+    max-width: fit-content;
+}
+
+/* Highlight the Header[cite: 24, 25] */
+.sortable-th.active-sort {
+    background-color: rgba(92, 207, 252, 0.308) !important;
+    /* border-bottom: 2px solid #ffffff; */
+}
+
+.active-sort-cell .sort-indicator {
+    visibility: visible;
+    opacity: 1;
+    color: rgb(37, 193, 255) !important; /* Optional: make the active arrow pop */
+}
+
+/* Highlight the Body Cells[cite: 26] */
+.active-sort-cell {
+    background-color: rgba(92, 207, 252, 0.308) !important;
+}
+
+.header-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;  
+    justify-content: center;
+    min-height: 40px;    
+}
+
+.player-table th, 
+.leaderboard-table th {
+    background-color: #ffffff; /* Force headers back to white */
+}
+
+#sort-player-name,
+#sort-team-team_name {
+    text-align: left;
+    padding-left: 8px;
+}
+
+#sort-player-name .sort-indicator,
+#sort-team-team_name .sort-indicator {
+    width: fit-content;
+    margin-left: 22px;
 }

@@ -1,71 +1,148 @@
+/* --- HERO SECTION --- */
+.hero-section {
+    text-align: center;
+    padding: 60px 20px;
+    background: #000;
+    color: #fff;
+    margin-bottom: 30px;
+}
+.hero-logo { width: 120px; height: 120px; margin-bottom: 20px; }
+.hero-title { font-family: 'Bebas Neue', sans-serif; font-size: 4rem; margin: 0; }
+.cta-buttons { display: flex; justify-content: center; gap: 15px; margin-top: 25px; }
+.cta-btn { 
+    width: 200px;
+    padding: 12px 24px; 
+    border: 2px solid #fff; 
+    text-decoration: none; 
+    color: #fff; 
+    font-weight: bold;
+    transition: 0.3s;
+}
+.cta-btn:hover { background: #fff; color: #000; }
 
-/* EXPLANATION CARDS */
-
-.infocards {
-    
+/* --- DASHBOARD GRID --- */
+.dashboard-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+    gap: 20px; 
 }
 
-.infocards-left {
-
+/* --- DASH CARD BASE --- */
+.dash-card {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 8px;
+    /* Establish the containment context */
+    container-type: inline-size;
+    container-name: card;
 }
 
-.infocards-right {
-    
+.dash-card h3 {
+    border-bottom: 2px solid #000;
+    padding-bottom: 10px;
+    margin-top: 0;
 }
 
-.infocards-headline {
-    width: fit-content;
-    padding: 0 100px 0 30px;
-    position: absolute;
-    top: 400px;
-    margin: 0 5px;
-    padding-left: 5px;
-    background-color: rgba(255, 255, 255, 0.5);
-    text-align: justify;
-}
-
-.infolist {
-    
-}
-
-.infolist-item {
-    
-}
-
-.logo-frontpage {
+/* --- TABLE STYLING --- */
+.dash-card table {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.9rem;
     width: 100%;
+    border-collapse: collapse;
+    table-layout: auto;
 }
 
-@media (min-width: 768px) {
-    .infocards {
-        display: grid;
-        grid-template-columns: 2fr 3fr;
-        justify-items: center;
-        align-items: stretch;
+.dash-card td, .dash-card th {
+    padding: 8px 4px;
+    text-align: center;
+}
+
+/* Align team column to left by default */
+.dash-card td:nth-child(2), .dash-card th:nth-child(2) {
+    text-align: left;
+}
+
+.tbody-tr .team-container {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+/* --- LEADERBOARD SPECIFIC: HIDE COLUMNS --- */
+/* Hides Group(3), Draws(7), Goals For(9), Goals Against(10)[cite: 3] */
+.dash-card table th:nth-child(3), .dash-card table td:nth-child(3),
+.dash-card table th:nth-child(7), .dash-card table td:nth-child(7),
+.dash-card table th:nth-child(9), .dash-card table td:nth-child(9),
+.dash-card table th:nth-child(10), .dash-card table td:nth-child(10) {
+    display: none;
+}
+
+/* --- SCHEDULE MINI-TABLE --- */
+.schedule-mini-table .matchup-container {
+    border-bottom: 1px solid #ccc;
+}
+
+.schedule-mini-table .game-header span {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #000;
+}
+
+.view-all-link {
+    display: block;
+    margin-top: 15px;
+    font-size: 0.8rem;
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+}
+
+/* --- CONTAINER QUERY: HIDE NAMES IF CARD IS SMALL --- */
+/* If the card is narrower than 400px, hide team names to prevent overlap */
+@container card (max-width: 400px) {
+    .team-container span {
+        display: none !important;
     }
-    .infolist {
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
+    
+    .team-container {
+        justify-content: center !important;
+    }
+
+    /* Center the column itself */
+    .dash-card td:nth-child(2), 
+    .dash-card th:nth-child(2) {
+        text-align: center !important;
+        padding: 8px 0 !important;
     }
 }
 
+.game-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    min-width: 80px;
+}
 
-/* TURNAUSKAAVIO */
+.playoff-tag {
+    font-size: 0.6rem;
+    background: #025bff;
+    color: #fff !important;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-family: 'Inter', sans-serif;
+    font-weight: bold;
+}
 
-.turnauskaavio {
+/* Ensure the matchup teams are centered in the dash-card */
+.matchup-teams {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
     width: 100%;
-
 }
 
-.turnauskaavio h3 {
-    margin: 20px 0;
+.game-header {
+    margin: 5px;
 }
-
-.turnauskaavio-kuva {
-    width: 100%;
-    border: 5px solid black;
-    border-radius: 20px;
-}
-
