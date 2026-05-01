@@ -74,6 +74,13 @@ body.credits-page {
     color: #666;
 }
 
+@media (max-width: 600px) {
+    .attribution-footer{
+        margin: 100px 0 0 0;
+    }    
+    
+}
+
 .attribution-footer a {
     color: #888;
     text-decoration: none;
@@ -101,5 +108,5 @@ body.credits-page {
 
 @media (max-width: 700px) {
     .credits-grid { grid-template-columns: 1fr; }
-    .credits-container { padding: 30px; }
+    .credits-container { padding: 10px; }
 }
