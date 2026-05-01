@@ -867,7 +867,7 @@ def generate_playoff_rows(matches, session):
             home = session.get(Team, match.home_team_id)
             away = session.get(Team, match.away_team_id)
             game_count += 1
-            playoff_stage = stage_names[game_count]
+            playoff_stage = stage_names[game_count - 1]
             
             # stages = [playoff_qf2, playoff_sf1, playoff_sf2, playoff_final]
             # playoff_stage = stages[game_count - 1]
