@@ -36,28 +36,99 @@ def on_startup():
 # LEADERBOARD
 # -------------------------------------------------------
 
-def generate_team_rows(teams):
+# -------------------------------------------------------
+# INDEX
+# -------------------------------------------------------
+
+@app.get("/schedule/upcoming", response_class=HTMLResponse)
+async def get_upcoming_matches():
+    with Session(engine) as session:
+        # 1. Look for real upcoming games (Regular or Playoff)
+        matches = session.exec(
+            select(Match)
+            .where(Match.finished == False)
+            .order_by(Match.match_time.asc())
+            .limit(3)
+        ).all()
+        
+        if matches:
+            return generate_dashboard_schedule_rows(matches, session)
+            
+        # 2. Fallback: If no real games are left, show the mock-up playoff placeholders
+        # We pass an empty list to your existing generator to get the placeholders
+        return generate_playoff_rows([], session)
+
+def generate_dashboard_schedule_rows(matches, session):
     rows = ""
+    for match in matches:
+        home = session.get(Team, match.home_team_id)
+        away = session.get(Team, match.away_team_id)
+        
+        # Check if it's a playoff game to add a label[cite: 3]
+        playoff_label = '<span class="playoff-tag">PLAYOFF</span>' if match.playoff else ""
+        
+        rows += f"""
+            <tr class="matchup-container">
+                <td class="game-header">
+                    <span>{match.match_time}</span>
+                    {playoff_label}
+                </td>
+                <td>
+                    <div class="matchup-teams">
+                        <div class="team-container home-team">
+                            <span>{home.team_name}</span>
+                            <div class="team-img-container">
+                                <svg width="40px" height="40px"><use href="{home.logo_url}"></use></svg>
+                            </div>
+                        </div>
+                        <span class="matchup-vs">@</span>
+                        <div class="team-container away-team">
+                            <div class="team-img-container">
+                                <svg width="40px" height="40px"><use href="{away.logo_url}"></use></svg>
+                            </div>
+                            <span>{away.team_name}</span>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        """
+    return rows
+
+
+# -------------------------------------------------------
+# LEADERBOARD
+# -------------------------------------------------------
+
+def generate_team_rows(teams, sort_by="points"):
+    rows = ""
+    # Helper to apply the highlight class if the column matches the sort criteria
+    def get_cls(col): 
+        return ' class="active-sort-cell"' if sort_by == col else ""
+
     for i, team in enumerate(teams, 1):
-        # calculate points: win = 3pts, draw = 1pt, loss = 0pts
-        points = (team.wins * 3) + team.draws
-        logo = team.logo_url or "profile.png"
+        points = (team.wins * 2) + team.draws
+        
         rows += f"""
             <tr class="tbody-tr">
                 <td>{i}</td>
-                <td>
-                    <div class="team-container">
-                        <img src="/photos/{logo}">
+                <td{get_cls('team_name')}>
+                    <div class="team-container" title="{team.team_name}">
+                        <div class="team-img-container">
+                            <svg width="50px" height="50px">
+                                <use class="team-img" href="{team.logo_url}"></use>
+                            </svg>
+                        </div>
                         <span>{team.team_name}</span>
                     </div>
                 </td>
-                <td>{team.group}</td>
-                <td>{points}</td>
-                <td>{team.wins}</td>
-                <td>{team.draws}</td>
-                <td>{team.losses}</td>
-                <td>{team.goals_for}</td>
-                <td>{team.goals_against}</td>
+                <td{get_cls('group')}>{team.group}</td>
+                <td{get_cls('games')}>{team.games}</td>
+                <td{get_cls('points')}>{points}</td>
+                <td{get_cls('wins')}>{team.wins}</td>
+                <td{get_cls('draws')}>{team.draws}</td>
+                <td{get_cls('losses')}>{team.losses}</td>
+                <td{get_cls('goals_for')}>{team.goals_for}</td>
+                <td{get_cls('goals_against')}>{team.goals_against}</td>
             </tr>
         """
     return rows
@@ -65,22 +136,141 @@ def generate_team_rows(teams):
 @app.get("/leaderboard/division-a", response_class=HTMLResponse)
 async def get_division_a():
     with Session(engine) as session:
+        # Use * 2 for wins to match generate_team_rows logic
         teams = session.exec(
             select(Team)
             .where(Team.group == "A")
-            .order_by((Team.wins * 3 + Team.draws).desc())
+            .order_by((Team.wins * 2 + Team.draws).desc())
         ).all()
         return generate_team_rows(teams)
 
 @app.get("/leaderboard/division-b", response_class=HTMLResponse)
 async def get_division_b():
     with Session(engine) as session:
+        # Use * 2 for wins to match generate_team_rows logic
         teams = session.exec(
             select(Team)
             .where(Team.group == "B")
-            .order_by((Team.wins * 3 + Team.draws).desc())
+            .order_by((Team.wins * 2 + Team.draws).desc())
         ).all()
         return generate_team_rows(teams)
+    
+@app.get("/leaderboard", response_class=HTMLResponse)
+async def get_leaderboard(
+    sort_by: str = Query(default="points"),
+    sort_order: str = Query(default="desc"), 
+):
+    with Session(engine) as session:
+        points_expr = (Team.wins * 2) + Team.draws
+        
+        sort_map = {
+            "team_name": Team.team_name,
+            "group": Team.group,
+            "games": Team.games,
+            "points" : points_expr,
+            "wins": Team.wins,
+            "draws": Team.draws,
+            "losses": Team.losses,
+            "goals_for": Team.goals_for,
+            "goals_against": Team.goals_against
+        }
+        
+        field = sort_map.get(sort_by, points_expr)
+
+        query = select(Team)
+        if sort_order == "asc":
+            query = query.order_by(field.asc())
+        else:
+            query = query.order_by(field.desc())
+            
+        teams = session.exec(query).all()
+        
+        # PASS THE SORT_BY VARIABLE HERE:
+        return generate_team_rows(teams, sort_by)
+
+# -------------------------------------------------------
+# PLAYERS STATS
+# -------------------------------------------------------
+
+@app.get("/playerStats", response_class=HTMLResponse)
+async def get_player_stats(
+    sort_by: str = Query(default="points"),
+    sort_order: str = Query(default="desc"),
+):
+    with Session(engine) as session:
+        query = (
+            select(PlayerStats)
+            .join(Player, PlayerStats.player_id == Player.player_id)
+            .join(Team, Player.team_id == Team.team_id)
+        )
+        
+        points_expr = PlayerStats.goals + PlayerStats.assists
+
+        sort_map = {
+            "name": Player.name,
+            "team": Team.team_name,
+            "played_games": PlayerStats.played_games,
+            "points" : points_expr,
+            "goals": PlayerStats.goals,
+            "assists": PlayerStats.assists,
+            "penalty_min": PlayerStats.penalty_min,
+            "stick": Player.lefthanded,
+            "primary_pos": Player.primary_pos
+        }
+        
+        field = sort_map.get(sort_by, points_expr)
+
+        if sort_order == "asc":
+            query = query.order_by(field.asc())
+        else:
+            query = query.order_by(field.desc())
+        
+        stats_list = session.exec(query).all()
+        
+        # PASS THE SORT_BY VARIABLE HERE:
+        return generate_stats_rows(stats_list, sort_by)
+        
+def generate_stats_rows(stats_list, sort_by="points"):
+    rows = ""
+    def get_cls(col): 
+        return ' class="active-sort-cell"' if sort_by == col else ""
+
+    for i, stats_entry in enumerate(stats_list, 1):
+        player = stats_entry.player
+        team = player.team 
+        stick_display = "L" if player.lefthanded else "R"
+        image = player.image_url or "profile.png"
+        team_logo = team.logo_url or "/logos/logo_default.png"
+        
+        rows += f"""
+            <tr class="tbody-tr">
+                <td>{i}</td>
+                <td{get_cls('name')}>
+                    <div class="player-container"">
+                        <div class="player-img-container">
+                            <img src="/photos/{image}">
+                        </div>
+                        <span>{player.name}</span>
+                    </div>
+                </td>
+                <td{get_cls('team')}>
+                    <div class="team-img-td">
+                        <svg width="35px" height="35px">
+                            <use class="team-img" href="{team_logo}"></use>
+                        </svg>
+                    </div>
+                </td>
+                <td{get_cls('played_games')}>{stats_entry.played_games}</td>
+                <td{get_cls('points')}>{stats_entry.goals + stats_entry.assists}</td>
+                <td{get_cls('goals')}>{stats_entry.goals}</td>
+                <td{get_cls('assists')}>{stats_entry.assists}</td>
+                <td{get_cls('penalty_min')}>{stats_entry.penalty_min}</td>
+                <td{get_cls('stick')}>{stick_display}</td>
+                <td{get_cls('primary_pos')}>{player.primary_pos}</td>
+            </tr>
+        """
+    return rows
+
 
 
 # -------------------------------------------------------
@@ -95,11 +285,12 @@ async def get_players(
     playstyle: str = Query(default=""),
     licenced: str = Query(default=""),
     recruiter: str = Query(default=""),
-    sort_by: str = Query(default="name"),
+    sort_by: str = Query(default="team_id"),
     sort_order: str = Query(default="asc"),
 ):
     with Session(engine) as session:
-        query = select(Player)
+        # Join Player and Team to access logo and team name
+        query = select(Player).join(Team, Player.team_id == Team.team_id)
 
         # split comma separated filter strings into lists
         p1_list       = [v for v in position1.split(",") if v]
@@ -136,7 +327,7 @@ async def get_players(
         sort_map = {
             "name": Player.name,
             "shirt_number": Player.shirt_number,
-            "team_id" : Player.team_id,
+            "team_id" : Team.team_name, # Improved sorting
             "primary_pos": Player.primary_pos,
             "secondary_pos": Player.secondary_pos,
             "stick": Player.lefthanded,
@@ -147,8 +338,7 @@ async def get_players(
             "recruiter": Player.recruiter
         }
         
-        # Get the selected field, default to Player.name if not found
-        field = sort_map.get(sort_by, Player.name)
+        field = sort_map.get(sort_by, Team.team_name)
 
         if sort_order == "asc":
             query = query.order_by(field.asc())
@@ -156,44 +346,49 @@ async def get_players(
             query = query.order_by(field.desc())
         
         players = session.exec(query).all()
-        if players == []:
-            empty_player = f"""
-                <tr>
-                    <td colspan="9" style="text-align:left; padding: 20px;">
-                        Mikään pelaaja ei vastannut hakua.
+        
+        if not players:
+            return """<tr><td colspan="11" style="text-align:left; padding: 20px;">
+                      Mikään pelaaja ei vastannut hakua.</td></tr>"""
+
+        # Generate rows with team logos
+        rows = ""
+        for player in players:
+            # Helper to check which column gets the highlight class
+            def get_cls(col_name):
+                return ' class="active-sort-cell"' if sort_by == col_name else ""
+
+            team = player.team
+            stick_display = "L" if player.lefthanded else "R"
+            licenced_display = "✓" if player.licenced else "X"
+            image = player.image_url or "profile.png"
+            team_logo = team.logo_url or "/logos/logo_default.png"
+            
+            rows += f"""
+                <tr class="tbody-tr">
+                    <td{get_cls('name')}>
+                        <div class="player-container">
+                            <div class="player-img-container"><img src="/photos/{image}"></div>
+                            <span>{player.name}</span>
+                        </div>
                     </td>
+                    <td{get_cls('shirt_number')}>{player.shirt_number or "-"}</td>
+                    <td{get_cls('team_id')}>
+                        <div class="team-img-td">
+                            <svg width="35px" height="35px"><use href="{team_logo}"></use></svg>
+                        </div>
+                    </td>
+                    <td{get_cls('primary_pos')}>{player.primary_pos or "-"}</td>
+                    <td{get_cls('secondary_pos')}>{player.secondary_pos or "-"}</td>
+                    <td{get_cls('stick')}>{stick_display}</td>
+                    <td{get_cls('age')}>{player.age}</td>
+                    <td{get_cls('experience')}>{player.experience}</td>
+                    <td{get_cls('playstyle')}>{player.playstyle or "-"}</td>
+                    <td{get_cls('licenced')}>{licenced_display}</td>
+                    <td{get_cls('recruiter')}>{player.recruiter or "Toimitsijat"}</td>
                 </tr>
             """
-            return empty_player
-        else:
-            rows = ""
-            for player in players:
-                stick_display    = "L" if player.lefthanded else "R"
-                licenced_display = "✓" if player.licenced else "X"
-                image            = player.image_url or "profile.png"
-                rows += f"""
-                    <tr class="tbody-tr">
-                        <td class="left-column">
-                            <div class="player-container">
-                                <div class="player-img-container">
-                                    <img src="/photos/{image}">
-                                </div>
-                                <span>{player.name}</span>
-                            </div>
-                        </td>
-                        <td>{player.shirt_number or ""}</td>
-                        <td>{player.team_id or "-"}</td>
-                        <td>{player.primary_pos or "-"}</td>
-                        <td>{player.secondary_pos or "-"}</td>
-                        <td>{stick_display}</td>
-                        <td>{player.age}</td>
-                        <td>{player.experience}</td>
-                        <td>{player.playstyle or "-"}</td>
-                        <td>{licenced_display}</td>
-                        <td>{player.recruiter or "Toimitsijat"}</td>
-                    </tr>
-                """
-            return rows
+        return rows
 
 
 # -------------------------------------------------------
