@@ -10,8 +10,14 @@ load_dotenv()
 #DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///test.db") # db_url
 DATABASE_URL = os.getenv("db_url")
 
-# Creates a connection to the database
-engine = create_engine(DATABASE_URL)
+# Creates a connection to the database 
+# SSL Cert not for production, just demonstration
+engine = create_engine(
+    DATABASE_URL,
+    connect_args={
+        "ssl": {"cert_reqs": 0}
+        }
+)
 
 # Create a session, can call from other places
 def get_session():
