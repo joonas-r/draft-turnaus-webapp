@@ -12,7 +12,7 @@ app = FastAPI()
 @app.on_event("startup")
 def on_startup():
     create_db_and_tables()
-#    seed_mock_data()
+    seed_mock_data()
 
 # No need to add new players via api
 
